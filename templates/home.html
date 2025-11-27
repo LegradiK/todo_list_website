@@ -1,19 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="utf-8">
-    <title>To Do List</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-</head>
+{% block title %}To Do List{% endblock %}
 
-<body>
-    {% include 'header.html' %}
-    <div class="container-fluid">
-        <h1 class="text-center my-5">Welcome to the To Do List</h1>
-        <p class="text-center">Organize your tasks efficiently</p>
+{% block content %}
+<div class="container-fluid">
+    <h1 class="text-center my-5">Welcome to the To Do List</h1>
+    <p class="text-center mb-4">Organize your tasks efficiently</p>
+
+    <!-- Optional: Show some featured todos in main content -->
+    <div class="row justify-content-center">
+        {% if old_todos %}
+            {% for todo in old_todos %}
+            <div class="col-md-4 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ todo.title }}</h5>
+                        <p class="card-text">Created on: {{ todo.created_at or 'Unknown' }}</p>
+                        <a href="" class="btn btn-primary">View</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-center">No old To Do Lists found.</p>
+        {% endif %}
     </div>
-    {% include 'footer.html' %}
-</body>
-
-</html>
+</div>
+{% endblock %}

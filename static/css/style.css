@@ -49,11 +49,39 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* footer */
+footer {
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 1rem 0;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1030;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+
+/* header */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary) !important; /* ensure it’s applied */
+    z-index: 1050;
+}
+
 .sidebar {
     width: 250px;
     height: 100vh;
     position: fixed;
-    top: 0;
+    top: 55px; /* not to overlap navbar */
     left: 0;
     background-color: var(--secondary);
     color: var(--white);
@@ -75,32 +103,19 @@ body {
 .main-content {
     margin-left: 250px; /* same width as sidebar */
     padding-top: 70px;  /* height of navbar */
+    padding-bottom: 60px; /* height of footer */
+    padding: 1rem;
+    background-color: var(--gray-light);
+    min-height: calc(100vh - 130px); /* full height minus navbar and footer */
 }
 
+.content {
+    /* Push footer to the bottom if content is small */
+    min-height: calc(100vh - 80px - 60px); /* header height + footer height */
+}
 
-/* header */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
+.footer {
     width: 100%;
-    background-color: var(--primary) !important; /* ensure it’s applied */
-    z-index: 1050;
-}
-
-/* footer */
-footer {
-    background-color: var(--dark);
-    color: var(--light);
-    padding: 1rem 0;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    left: 250px; /* offset for sidebar */
-    width: calc(100% - 250px);
-    z-index: 1030;
-}
-
-body, html {
-    height: 100%;
+    background-color: var(--primary); /* same as navbar bg-dark */
+    color: var(--white) !important;
 }

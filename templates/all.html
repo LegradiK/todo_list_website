@@ -20,7 +20,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="{{ url_for('static', filename='css/style.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -63,10 +63,10 @@
     {% endwith %}
 
 
-    <div class="d-flex px-3">
+    <div class="d-flex px-3 py-4">
         <!-- templates/sidebar.html -->
-        <div class="sidebar">
-            <h5 class="mb-3">Menu</h5>
+        <div class="sidebar px-3 py-4">
+            <h5 class="mb-3">Lists</h5>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
                     <a href="" class="nav-link">+ New To Do List</a>
@@ -109,14 +109,12 @@
         </div>
     </div>
 
-    <div class="container-fluid footer text-white mt-5 pt-5 px-0 position-relative overlay-top">
-        <div class="row mx-0 pt-5 px-sm-3 px-lg-5 mt-4 d-flex justify-content-center text-center">
-        <div class="container-fluid text-right text-white border-top mt-4 py-4 px-sm-3 px-md-5"
-            style="border-color: rgba(256, 256, 256, .1) !important;">
-            <p class="m-0 text-white">&copy; 2025 To Do List. All Rights Reserved.</p>
-        </div>
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white text-center py-4">
+    <div class="container">
+        <p class="m-0">&copy; 2025 To Do List. All Rights Reserved.</p>
     </div>
-
+    </footer>
 
     <!-- Bootstrap 5 JS -->
     {{ bootstrap.load_js() }}

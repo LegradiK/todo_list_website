@@ -20,5 +20,14 @@ def about():
 def new_todo():
     return render_template('new_todo.html')
 
+@app.route('/signin')
+def signin():
+    return render_template('signin_signup.html')
+
+@app.route('/signup')
+def signup():
+    return render_template('signin_signup.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -11,9 +11,15 @@
         <span class="d-block">Don’t have an account? Sign up for free.</span>
     </h4>
 
-    <div class="d-flex justify-content-center mb-5">
-        <a href="" class="btn btn-primary mx-2">Log In</a>
-        <a href="" class="btn btn-secondary mx-2">Sign Up</a>
-    </div>
+    {% if session.get('user_id') %}
+        <div class="text-center mt-5">
+            <a href="{{ url_for('new_todo') }}" class="btn btn-primary px-4">+ New To Do List</a>
+        </div>
+    {% else %}
+        <div class="text-center mt-5">
+            <a href="{{ url_for('login') }}" class="btn btn-primary px-4 me-2">Log In</a>
+            <a href="{{ url_for('signup') }}?tab=signup" class="btn btn-secondary px-4">Sign Up</a>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

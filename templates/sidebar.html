@@ -3,7 +3,7 @@
     <h5 class="mb-3">Lists</h5>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-            <a href="" class="nav-link">+ New To Do List</a>
+            <a href="{{ url_for('new_todo') }}" class="nav-link">+ New To Do List</a>
         </li>
         <hr class="text-white">
         {% for todo in old_todos %}

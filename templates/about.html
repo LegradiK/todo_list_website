@@ -28,11 +28,16 @@
     <p class="mb-4 about-legal-rights-text">
         All rights reserved by <i>LegradiK</i>. Use the platform responsibly and enjoy a seamless productivity experience.
     </p>
-
-    <div class="text-center mt-5">
-        <a href="" class="btn btn-primary px-4 me-2">Log In</a>
-        <a href="" class="btn btn-secondary px-4">Sign Up</a>
-    </div>
+    {% if session.get('user_id') %}
+        <div class="text-center mt-5">
+            <a href="{{ url_for('new_todo') }}" class="btn btn-primary px-4">+ New To Do List</a>
+        </div>
+    {% else %}
+        <div class="text-center mt-5">
+            <a href="{{ url_for('login') }}" class="btn btn-primary px-4 me-2">Log In</a>
+            <a href="{{ url_for('signup') }}?tab=signup" class="btn btn-secondary px-4">Sign Up</a>
+        </div>
+    {% endif %}
 
 </div>
 {% endblock %}

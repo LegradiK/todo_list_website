@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Login / Sign Up{% endblock %}
+
+{% block content %}
+    <div class="container" style="max-width: 450px; margin: 50px auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 0 25px rgba(0,0,0,0.1);">
+
+        <!-- Tabs -->
+        <ul class="nav nav-tabs nav-justified" id="authTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab">Login</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="signup-tab" data-bs-toggle="tab" data-bs-target="#signup" type="button" role="tab">Sign Up</button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="authTabContent">
+            <div class="tab-pane fade show active" id="login" role="tabpanel">
+                <form class="mt-3" method="POST" action="{{ url_for('login') }}">
+                    <div class="mb-3">
+                        <label for="loginEmail" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="loginEmail" name='email' placeholder="Enter email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loginPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="loginPassword" name='password' placeholder="Password" required>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+
+            <div class="tab-pane fade" id="signup" role="tabpanel">
+                <form class="mt-3" method="POST" action="{{ url_for('signup') }}">
+                    <div class="mb-3">
+                        <label for="signupFirstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="signupFirstName" name='first_name' placeholder="Enter first name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signupLastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="signupLastName" name='last_name' placeholder="Enter last name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signupEmail" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="signupEmail" name='email' placeholder="Enter email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signupPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="signupPassword" name='password' placeholder="Password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signupConfirm" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="signupConfirm" name='confirm_password' placeholder="Confirm Password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tab = urlParams.get('tab');
+        if (tab === 'signup') {
+            const signupTab = new bootstrap.Tab(document.querySelector('#signup-tab'));
+            signupTab.show();
+        }
+    });
+    </script>
+{% endblock %}

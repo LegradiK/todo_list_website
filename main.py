@@ -10,7 +10,15 @@ bootstrap = Bootstrap5(app)
 
 @app.route('/')
 def home():
-    return render_template('all.html')
+    return render_template('home.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/new_todo')
+def new_todo():
+    return render_template('new_todo.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -14,6 +14,7 @@
   --gray-dark: #343a40;
   --primary: #DA9F5B;       /* Navbar color */
   --secondary: #33211D;     /* Sidebar background */
+  --third:#87603C;
   --success: #28a745;
   --info: #17a2b8;
   --warning: #ffc107;
@@ -61,6 +62,7 @@ footer {
     z-index: 1030;
 }
 
+
 body, html {
     height: 100%;
     margin: 0;
@@ -79,9 +81,9 @@ body, html {
 
 .sidebar {
     width: 250px;
-    height: 100vh;
+    height: calc(100vh - 55px - 50px); /* navbar height - footer height */
     position: fixed;
-    top: 55px; /* not to overlap navbar */
+    top: 55px;
     left: 0;
     background-color: var(--secondary);
     color: var(--white);
@@ -116,6 +118,236 @@ body, html {
 
 .footer {
     width: 100%;
+    height: 50px;
     background-color: var(--primary); /* same as navbar bg-dark */
     color: var(--white) !important;
+
+    /* Center text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.welcome-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--secondary);
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 100px;
+}
+
+.welcome-subtitle {
+    font-size: 1.25rem;
+    color: var(--primary);
+    text-align: center;
+    margin-top: 1rem;
+    padding-top: 50px;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 2rem;
+}
+
+.btn-secondary {
+    background-color: var(--secondary);
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 2rem;
+}
+
+.about-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--secondary);
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 50px;
+}
+.about-subtitle {
+    font-size: 1.25rem;
+    color: var(--primary);
+    text-align: center;
+    margin-top: 1rem;
+    padding-top: 20px;
+}
+.about-features {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--secondary);
+    margin-top: 2rem;
+}
+.about-features-list {
+    color: var(--third);
+    margin-top: 1rem;
+    margin-left: 2rem;
+}
+.about-why-use {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--secondary);
+    margin-top: 2rem;
+}
+.about-why-use-text {
+    color: var(--third);
+    margin-top: 1rem;
+}
+.about-legal-rights {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--secondary);
+    margin-top: 2rem;
+}
+.about-legal-rights-text {
+    color: var(--third);
+    margin-top: 1rem;
+}
+
+.no-wrap {
+    white-space: nowrap;       /* Prevent wrapping */
+    overflow-x: auto;          /* Add horizontal scroll if needed */
+    display: inline-block;     /* Keep it inline but prevent wrapping */
+}
+
+/* Flex utilities */
+.flex {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+.flex-column-reverse {
+    flex-direction: column-reverse !important;
+}
+
+/* Padding utilities */
+.padding {
+    padding: 5rem;
+}
+
+@media (max-width: 991.98px) {
+    .padding {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .padding {
+        padding: 1rem;
+    }
+}
+
+/* Card styles */
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #FFF5E6; /* your light color */
+    background-clip: border-box;
+    border: 1px solid #d2d2dc;
+    border-radius: 0;
+    box-shadow: none;
+
+    /* Equal margins on all sides */
+    margin: 2rem auto; /* adjust the value as needed */
+
+}
+
+
+.card .card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem 1.75rem;
+}
+
+.card .card-title {
+    color: #000;
+    margin-bottom: 0.625rem;
+    text-transform: capitalize;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Buttons */
+.btn {
+    font-size: 0.875rem;
+    line-height: 1;
+    font-weight: 400;
+    padding: 0.7rem 1.5rem;
+    border-radius: 0.1275rem;
+}
+
+/* Forms */
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.875rem 1.375rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 2px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Add items section */
+.add-items {
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.add-items input[type="text"] {
+    width: 100%;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background: transparent;
+}
+
+.add-items .btn {
+    margin-left: 0.5rem;
+}
+
+/* List wrapper */
+.list-wrapper {
+    height: 100%;
+    max-height: 100%;
+}
+
+.list-wrapper ul {
+    padding: 0;
+    text-align: left;
+    list-style: none;
+    margin-bottom: 0;
+}
+
+.list-wrapper ul li {
+    font-size: 0.9375rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.list-wrapper ul li:first-child {
+    border-bottom: none;
 }

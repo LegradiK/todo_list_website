@@ -4,26 +4,16 @@
 
 {% block content %}
 <div class="container-fluid">
-    <h1 class="text-center my-5">Welcome to the To Do List</h1>
-    <p class="text-center mb-4">Organize your tasks efficiently</p>
+    <h1 class="text-center mt-5 mb-4 welcome-title">Welcome to the To Do List</h1>
+    <h4 class="text-center my-4 mb-4 welcome-subtitle">
+        <span class="d-block">Log in to continue with your lists or start a new one.</span>
+    </br>
+        <span class="d-block">Don’t have an account? Sign up for free.</span>
+    </h4>
 
-    <!-- Optional: Show some featured todos in main content -->
-    <div class="row justify-content-center">
-        {% if old_todos %}
-            {% for todo in old_todos %}
-            <div class="col-md-4 mb-3">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ todo.title }}</h5>
-                        <p class="card-text">Created on: {{ todo.created_at or 'Unknown' }}</p>
-                        <a href="" class="btn btn-primary">View</a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        {% else %}
-            <p class="text-center">No old To Do Lists found.</p>
-        {% endif %}
+    <div class="d-flex justify-content-center mb-5">
+        <a href="" class="btn btn-primary mx-2">Log In</a>
+        <a href="" class="btn btn-secondary mx-2">Sign Up</a>
     </div>
 </div>
 {% endblock %}

@@ -1,19 +1,14 @@
 <!-- templates/sidebar.html -->
-<div class="d-flex flex-column flex-shrink-0 p-3 text-white"
-     style="width: 250px; height: 100vh; background-color: var(--secondary); position: fixed; z-index: 1030;">
-    <h5 class="mb-3">Menu</h5>
+<div class="sidebar px-3 py-4">
+    <h5 class="mb-3">Lists</h5>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-            <a href="" class="nav-link text-white">
-                + New To Do List
-            </a>
+            <a href="" class="nav-link">+ New To Do List</a>
         </li>
         <hr class="text-white">
         {% for todo in old_todos %}
         <li class="nav-item">
-            <a href="" class="nav-link text-white">
-                {{ todo.title }}
-            </a>
+            <a href="" class="nav-link">{{ todo.title }}</a>
         </li>
         {% endfor %}
     </ul>

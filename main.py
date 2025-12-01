@@ -66,20 +66,29 @@ def new_todo():
         return redirect(url_for('login'))
 
     if request.method == 'POST':
-        todo_title = request.form.get("title")
-        if not todo_title:
-            todo_title = "Untitled List"
-        todo_list = request.form.get("todo_list")
+        title = request.form.get("title") or "Untitled List"
+        items = request.form.getlist("items")  # All tasks submitted via hidden inputs
 
-        new_list_title = ToDoList(title=todo_title, user_id=session['user_id'])
-        new_list = ToDoList(title=todo_list, user_id=session['user_id'])
-        db.session.add(new_list_title)
-        db.session.add(new_list)
+        # Create new ToDoList
+        todo_list = ToDoList(title=title, user_id=session['user_id'])
+        db.session.add(todo_list)
+        db.session.flush()  # Get todo_list.id without committing
+
+        # Add tasks to ToDoItem table
+        for item_text in items:
+            todo_item = ToDoItem(
+                text=item_text,
+                list_id=todo_list.id,
+                user_id=session['user_id']
+            )
+            db.session.add(todo_item)
+
         db.session.commit()
-        flash('New to-do list created!', 'success')
-        return redirect(url_for('new_todo', list_id=new_list.id))
+        flash("New to-do list created!", "success")
+        return redirect(url_for('new_todo'))
 
     return render_template('new_todo.html')
+
 
 
 @app.route('/login', methods=['GET', 'POST'])

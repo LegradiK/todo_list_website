@@ -69,8 +69,11 @@ def new_todo():
         todo_title = request.form.get("title")
         if not todo_title:
             todo_title = "Untitled List"
+        todo_list = request.form.get("todo_list")
 
-        new_list = ToDoList(title=todo_title, user_id=session['user_id'])
+        new_list_title = ToDoList(title=todo_title, user_id=session['user_id'])
+        new_list = ToDoList(title=todo_list, user_id=session['user_id'])
+        db.session.add(new_list_title)
         db.session.add(new_list)
         db.session.commit()
         flash('New to-do list created!', 'success')

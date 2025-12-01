@@ -14,14 +14,21 @@ bootstrap = Bootstrap5(app)
 
 EMAIL_REGEX = r'^[\w\.-]+@[\w\.-]+\.\w+$'
 
-class ToDoItem(db.Model):
+class ToDoList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
-    description = db.Column(db.Text, nullable=True)
+
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    def __repr__(self):
-        return f"<ToDoItem {self.title}>"
+    items = db.relationship('ToDoItem', backref='list', lazy=True, cascade="all, delete")
+
+
+class ToDoItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(200), nullable=False)
+    completed = db.Column(db.Boolean, default=False)
+    list_id = db.Column(db.Integer, db.ForeignKey('to_do_list.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -29,10 +36,12 @@ class User(db.Model):
     last_name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
-    todos = db.relationship('ToDoItem', backref='owner', lazy=True)
+
+    lists = db.relationship('ToDoList', backref='owner', lazy=True)
 
     def __repr__(self):
-            return f"<User {self.first_name.title()}>"
+        return f"<User {self.first_name.title()}>"
+
 
 with app.app_context():
     db.create_all()
@@ -50,9 +59,25 @@ def home():
 def about():
     return render_template('about.html')
 
-@app.route('/new_todo')
+@app.route('/new_todo', methods=['GET', 'POST'])
 def new_todo():
+    if 'user_id' not in session:
+        flash("Please log in first.", "warning")
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        todo_title = request.form.get("title")
+        if not todo_title:
+            todo_title = "Untitled List"
+
+        new_list = ToDoList(title=todo_title, user_id=session['user_id'])
+        db.session.add(new_list)
+        db.session.commit()
+        flash('New to-do list created!', 'success')
+        return redirect(url_for('new_todo', list_id=new_list.id))
+
     return render_template('new_todo.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

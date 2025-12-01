@@ -351,3 +351,59 @@ body, html {
 .list-wrapper ul li:first-child {
     border-bottom: none;
 }
+
+.login_prompt_title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--third);
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 100px;
+}
+
+.login-prompt-subtitle {
+    font-size: 1.25rem;
+    color: var(--primary);
+    text-align: center;
+    margin-top: 1rem;
+    padding-top: 50px;
+}
+
+.todo-list-title-input {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--secondary);
+    background-color: #FFF5E6;
+    text-align: center;
+    margin-bottom: 1rem;
+    border: none;
+    border-bottom: 2px solid #FFF5E6;
+    outline: none;
+    width: 100%;
+}
+
+.todo-list-add-btn {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 1.75rem;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 1rem;
+}
+
+.todo-list-create-btn {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 1rem;
+}

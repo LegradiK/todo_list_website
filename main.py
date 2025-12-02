@@ -19,7 +19,7 @@ class ToDoList(db.Model):
     title = db.Column(db.String(200), nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
+    user = db.relationship('User', backref='todo_items')
     items = db.relationship('ToDoItem', backref='list', lazy=True, cascade="all, delete")
 
 
@@ -59,8 +59,8 @@ def home():
 def about():
     return render_template('about.html')
 
-@app.route('/new_todo', methods=['GET', 'POST'])
-def new_todo():
+@app.route('/<int:user_id>/new_todo', methods=['POST'])
+def new_todo(user_id):
     if 'user_id' not in session:
         flash("Please log in first.", "warning")
         return redirect(url_for('login'))
@@ -87,16 +87,18 @@ def new_todo():
         flash("New to-do list created!", "success")
         return redirect(url_for('new_todo'))
 
-    return render_template('new_todo.html')
+    return render_template('new_todo.html', user_id=session['user_id'])
 
-@app.route('/old_todo/<int:todo_id>')
-def old_todo(todo_id):
+@app.route('/<int:user_id>/old_todo/<int:todo_id>', methods=['GET', 'POST'])
+def old_todo(user_id, todo_id):
     todo_list = ToDoList.query.get_or_404(todo_id)
     if 'user_id' not in session or todo_list.user_id != session['user_id']:
         flash("You do not have access to this to-do list.", "danger")
         return redirect(url_for('home'))
-    items = ToDoItem.query.filter_by(list_id=todo_id).all()
-    return render_template('old_todo.html', todo_list=todo_list, items=items)
+    else:
+        items = ToDoItem.query.filter_by(list_id=todo_id).all()
+        return render_template('old_todo.html', user_id=session['user_id'], todo_list=todo_list, items=items)
+
 
 
 @app.context_processor
@@ -158,8 +160,9 @@ def signup():
 
 @app.route('/logout')
 def logout():
+    session.pop('first_name', None)
+    session.pop('last_name', None)
     session.pop('user_id', None)
-    session.pop('user_name', None)
     flash('You have been logged out.', 'info')
     return redirect(url_for('home'))
 

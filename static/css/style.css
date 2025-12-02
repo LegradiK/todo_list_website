@@ -455,21 +455,13 @@ body, html {
 /* SAME spacing for list items */
 .old-todo-list li,
 .new-todo-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 0.5rem 0;      /* identical vertical spacing */
-    border-bottom: 1px solid #f3f3f3;
+    border-bottom: 1px solid #c9c8c8;
 }
 
-/* Add clean equal gap BETWEEN old and new lists */
-.old-todo-list {
-    margin-bottom: 0rem;  /* space after old list */
-}
-
-.old-todo-list .form-check-label {
-    margin-left: 0.5rem; /* space between checkbox and text */
-}
-.new-todo-list .form-check-label {
-    margin-left: 0.3rem; /* space between checkbox and text */
-}
 .delete-btn {
     background-color: var(--transparent);
     color: var(--white);
@@ -490,10 +482,23 @@ body, html {
 
 .todo-item {
     display: flex;
-    justify-content: space-between; /* text left, button right */
-    align-items: center;            /* vertically center checkbox/text/button */
+    justify-content: space-between; /* left vs right */
+    align-items: center;
     padding: 0.5rem 0;
     border-bottom: 1px solid #f3f3f3;
+    width: 100%; /* ensure full width */
+}
+
+.todo-left {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* text expands as much as possible */
+}
+
+.todo-right {
+    display: flex;
+    gap: 0.5rem; /* space between buttons */
+    flex-shrink: 0; /* prevent buttons from shrinking */
 }
 
 .edit-btn {
@@ -513,3 +518,4 @@ body, html {
 .edit-btn:hover {
     background-color: var(--secondary);
 }
+

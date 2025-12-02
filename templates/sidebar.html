@@ -8,14 +8,14 @@
     {% endif %}
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-            <a href="{{ url_for('new_todo') }}" class="nav-link">+ New To Do List</a>
+            <a href="{{ url_for('new_todo', user_id=session['user_id']) }}" class="nav-link">+ New To Do List</a>
         </li>
         <hr class="text-white">
         <h5 class="mb-3">Lists</h5>
         {% if session.get('user_id') %}
             {% for todo in old_todos %}
             <li class="nav-item">
-                <a href="{{ url_for('old_todo', todo_id=todo.id) }}" class="nav-link">{{ todo.title }}</a>
+                <a href="{{ url_for('old_todo', user_id=session['user_id'], todo_id=todo.id) }}" class="nav-link">{{ todo.title }}</a>
             </li>
             {% endfor %}
         {% endif %}

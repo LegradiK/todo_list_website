@@ -12,21 +12,19 @@
 
       // Add visible list item
       todoListItem.append(
-        "<li>" +
-        "<div class='form-check'>" +
-        "<label class='form-check-label'>" +
+        "<li class='todo-item'>" +
+        "<div class='todo-left'>" +
         "<input class='checkbox' type='checkbox'/>" +
         "<span class='ms-3'>" + item + "</span>" +
-        "<i class='input-helper'></i>" +
+        "</div>" +
+        "<div class='todo-right'>" +
         "<button type='button' class='btn btn-link btn-sm edit-btn'>" +
             "<img src='" + editIconURL + "' alt='Edit' width='18' height='18'>" +
         "</button>" +
         "<button type='button' class='btn btn-link btn-sm delete-btn'>" +
             "<img src='" + deleteIconURL + "' alt='Delete' width='18' height='18'>" +
         "</button>" +
-        "</label>" +
         "</div>" +
-        "<i class='remove mdi mdi-close-circle-outline'></i>" +
         "</li>"
       );
 

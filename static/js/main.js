@@ -1,7 +1,7 @@
 (function($) {
   'use strict';
   $(function() {
-    var todoListItem = $('.todo-list');
+    var todoListItem = $('.new-todo-list');
     var todoListInput = $('.todo-list-input');
     var addBtn = $('.todo-list-add-btn');
     var hiddenItemsContainer = $('#hidden-items');
@@ -12,11 +12,22 @@
 
       // Add visible list item
       todoListItem.append(
-        "<li><div class='form-check'><label class='form-check-label'>" +
+        "<li>" +
+        "<div class='form-check'>" +
+        "<label class='form-check-label'>" +
         "<input class='checkbox' type='checkbox'/>" +
-        item +
-        "<i class='input-helper'></i></label></div>" +
-        "<i class='remove mdi mdi-close-circle-outline'></i></li>"
+        "<span class='ms-3'>" + item + "</span>" +
+        "<i class='input-helper'></i>" +
+        "<button type='button' class='btn btn-link btn-sm edit-btn'>" +
+            "<img src='" + editIconURL + "' alt='Edit' width='18' height='18'>" +
+        "</button>" +
+        "<button type='button' class='btn btn-link btn-sm delete-btn'>" +
+            "<img src='" + deleteIconURL + "' alt='Delete' width='18' height='18'>" +
+        "</button>" +
+        "</label>" +
+        "</div>" +
+        "<i class='remove mdi mdi-close-circle-outline'></i>" +
+        "</li>"
       );
 
       // Add hidden input for form submission

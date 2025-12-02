@@ -89,6 +89,22 @@ def new_todo():
 
     return render_template('new_todo.html')
 
+@app.route('/old_todo/<int:todo_id>')
+def old_todo(todo_id):
+    todo_list = ToDoList.query.get_or_404(todo_id)
+    if 'user_id' not in session or todo_list.user_id != session['user_id']:
+        flash("You do not have access to this to-do list.", "danger")
+        return redirect(url_for('home'))
+    items = ToDoItem.query.filter_by(list_id=todo_id).all()
+    return render_template('old_todo.html', todo_list=todo_list, items=items)
+
+
+@app.context_processor
+def inject_user_todos():
+    if 'user_id' in session:
+        todos = ToDoList.query.filter_by(user_id=session['user_id']).all()
+        return dict(old_todos=todos)
+    return dict(old_todos=[])
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -102,7 +118,6 @@ def login():
             session['first_name'] = user.first_name
             session['last_name'] = user.last_name
             session['user_id'] = user.id
-            return redirect(url_for('new_todo'))
         else:
             # Login failed
             flash('Invalid email or password', 'danger')
@@ -147,6 +162,7 @@ def logout():
     session.pop('user_name', None)
     flash('You have been logged out.', 'info')
     return redirect(url_for('home'))
+
 
 
 if __name__ == '__main__':

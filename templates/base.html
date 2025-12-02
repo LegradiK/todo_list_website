@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <link rel="icon" href="{{ url_for('static', filename='icons/check-list.png') }}">
     <title>{% block title %}To Do List{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -47,6 +48,8 @@
                 signupTab.show(); // Adds 'show active' automatically
             }
         });
+        var deleteIconURL = "{{ url_for('static', filename='icons/delete.png') }}";
+        var editIconURL = "{{ url_for('static', filename='icons/edit.png') }}";
     </script>
 
     <!-- Template Javascript -->

@@ -352,6 +352,29 @@ body, html {
     border-bottom: none;
 }
 
+/* Old List wrapper */
+.old-list-wrapper {
+    height: 100%;
+    max-height: 100%;
+}
+
+.old-list-wrapper ul {
+    padding: 0;
+    text-align: left;
+    list-style: none;
+    margin-bottom: 0;
+}
+
+.old-list-wrapper ul li {
+    font-size: 0.9375rem;
+    padding: 0rem 0;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.old-list-wrapper ul li:first-child {
+    border-bottom: none;
+}
+
 .login_prompt_title {
     font-size: 2.5rem;
     font-weight: bold;
@@ -406,4 +429,87 @@ body, html {
     text-decoration: none;
     display: inline-block;
     margin-top: 1rem;
+}
+
+.todo-list-update-btn {
+    background-color: var(--secondary);
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 1rem;
+}
+
+/* SAME spacing between old list and new list */
+.old-todo-list,
+.new-todo-list {
+    margin: 0;              /* no extra margins */
+    padding: 0;
+    list-style: none;
+}
+
+/* SAME spacing for list items */
+.old-todo-list li,
+.new-todo-list li {
+    padding: 0.5rem 0;      /* identical vertical spacing */
+    border-bottom: 1px solid #f3f3f3;
+}
+
+/* Add clean equal gap BETWEEN old and new lists */
+.old-todo-list {
+    margin-bottom: 0rem;  /* space after old list */
+}
+
+.old-todo-list .form-check-label {
+    margin-left: 0.5rem; /* space between checkbox and text */
+}
+.new-todo-list .form-check-label {
+    margin-left: 0.3rem; /* space between checkbox and text */
+}
+.delete-btn {
+    background-color: var(--transparent);
+    color: var(--white);
+    border: none;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: var(--secondary);
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between; /* text left, button right */
+    align-items: center;            /* vertically center checkbox/text/button */
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.edit-btn {
+    background-color: var(--transparent);
+    color: var(--white);
+    border: none;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn:hover {
+    background-color: var(--secondary);
 }

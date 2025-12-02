@@ -1,15 +1,23 @@
 <!-- templates/sidebar.html -->
 <div class="sidebar px-3 py-4">
-    <h5 class="mb-3">Lists</h5>
+    {% if session.get('user_id') %}
+    <div class="user-info mb-4">
+        <h5 class="mb-1">{{ session.get('first_name') }}'s To-Do List</h5>
+
+    </div>
+    {% endif %}
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
             <a href="{{ url_for('new_todo') }}" class="nav-link">+ New To Do List</a>
         </li>
         <hr class="text-white">
-        {% for todo in old_todos %}
-        <li class="nav-item">
-            <a href="" class="nav-link">{{ todo.title }}</a>
-        </li>
-        {% endfor %}
+        <h5 class="mb-3">Lists</h5>
+        {% if session.get('user_id') %}
+            {% for todo in old_todos %}
+            <li class="nav-item">
+                <a href="{{ url_for('old_todo', todo_id=todo.id) }}" class="nav-link">{{ todo.title }}</a>
+            </li>
+            {% endfor %}
+        {% endif %}
     </ul>
 </div>

@@ -19,8 +19,9 @@ class ToDoList(db.Model):
     title = db.Column(db.String(200), nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = db.relationship('User', backref='todo_items')
-    items = db.relationship('ToDoItem', backref='list', lazy=True, cascade="all, delete")
+    owner = db.relationship('User', back_populates='lists')
+
+    items = db.relationship('ToDoItem', back_populates='list', lazy=True, cascade="all, delete")
 
 
 class ToDoItem(db.Model):
@@ -30,6 +31,8 @@ class ToDoItem(db.Model):
     list_id = db.Column(db.Integer, db.ForeignKey('to_do_list.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
+    list = db.relationship('ToDoList', back_populates='items')
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(100), nullable=False)
@@ -37,7 +40,7 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
 
-    lists = db.relationship('ToDoList', backref='owner', lazy=True)
+    lists = db.relationship('ToDoList', back_populates='owner', lazy=True)
 
     def __repr__(self):
         return f"<User {self.first_name.title()}>"
@@ -59,8 +62,8 @@ def home():
 def about():
     return render_template('about.html')
 
-@app.route('/<int:user_id>/new_todo', methods=['POST'])
-def new_todo(user_id):
+@app.route('/new_todo', methods=['GET', 'POST'])
+def new_todo():
     if 'user_id' not in session:
         flash("Please log in first.", "warning")
         return redirect(url_for('login'))
@@ -100,7 +103,6 @@ def old_todo(user_id, todo_id):
         return render_template('old_todo.html', user_id=session['user_id'], todo_list=todo_list, items=items)
 
 
-
 @app.context_processor
 def inject_user_todos():
     if 'user_id' in session:
@@ -120,6 +122,7 @@ def login():
             session['first_name'] = user.first_name
             session['last_name'] = user.last_name
             session['user_id'] = user.id
+            return redirect(url_for('new_todo', user_id=user.id))
         else:
             # Login failed
             flash('Invalid email or password', 'danger')

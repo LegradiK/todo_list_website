@@ -99,9 +99,52 @@ def old_todo(user_id, todo_id):
         flash("You do not have access to this to-do list.", "danger")
         return redirect(url_for('home'))
     else:
+
+        if request.method == 'POST':
+
+            # 1 UPDATE EXISTING ITEMS
+            items = ToDoItem.query.filter_by(list_id=todo_id).all()
+
+            for item in items:
+                item_text = request.form.get(f"item_{item.id}_text")
+                item_completed = request.form.get(f"item_{item.id}_completed") == "on"
+
+                if item_text is not None:     # prevents NULL updates
+                    item.text = item_text
+
+                item.completed = item_completed
+
+            #  ADD NEW ITEMS
+            new_items = request.form.getlist("items")
+
+            for text in new_items:
+                if text.strip():
+                    db.session.add(ToDoItem(
+                        text=text,
+                        list_id=todo_list.id,
+                        user_id=session['user_id']
+                    ))
+
+            db.session.commit()
+            flash("To-do list updated!", "success")
+            return redirect(url_for('old_todo', user_id=user_id, todo_id=todo_id))
+
+
         items = ToDoItem.query.filter_by(list_id=todo_id).all()
         return render_template('old_todo.html', user_id=session['user_id'], todo_list=todo_list, items=items)
 
+@app.route('/delete_item/<int:item_id>', methods=['POST'])
+def delete_item(item_id):
+    if 'user_id' not in session:
+        return "Unauthorized", 401
+
+    item = ToDoItem.query.get_or_404(item_id)
+    if item.user_id != session['user_id']:
+        return "Unauthorized", 401
+
+    db.session.delete(item)
+    db.session.commit()
+    return "OK", 200
 
 @app.context_processor
 def inject_user_todos():

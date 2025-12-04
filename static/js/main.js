@@ -50,11 +50,57 @@
       }
     });
 
-    // Remove item
-    todoListItem.on('click', '.remove', function() {
-      var index = $(this).parent().index();
-      hiddenItemsContainer.find("input[name='items']").eq(index).remove();
-      $(this).parent().remove();
+    // Delete item
+    $('.old-todo-list').on('click', '.delete-btn', function () {
+        const itemId = $(this).data('item-id');
+        const li = $(this).closest('.todo-item');
+
+        $.post(`/delete_item/${itemId}`, function () {
+            li.remove();
+        });
     });
+    // Edit item
+    $('.old-todo-list').on('click', '.edit-btn', function () {
+        const li = $(this).closest('.todo-item');
+        const textSpan = li.find('.item-text');
+        const input = li.find('.item-edit-input');
+
+        // Put old text as placeholder
+        input.attr('placeholder', textSpan.text());
+
+        // Hide text, show input
+        textSpan.addClass('d-none');
+        input.removeClass('d-none');
+
+        input.val(''); // clear so placeholder shows
+        input.focus();
+    });
+
+    // Save edited item on Enter key
+    $('.old-todo-list').on('keydown', '.item-edit-input', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+
+            const li = $(this).closest('.todo-item');
+            const textSpan = li.find('.item-text');
+            const input = $(this);
+
+            const newValue = input.val().trim();
+
+            if (newValue) {
+                // Update visible text
+                textSpan.text(newValue);
+            }
+
+            // Restore UI
+            input.addClass('d-none');
+            textSpan.removeClass('d-none');
+
+            // KEEP hidden input value updated for form submission
+            input.val(newValue);
+        }
+    });
+
+
   });
 })(jQuery);

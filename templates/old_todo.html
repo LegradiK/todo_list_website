@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="card px-3">
                     <div class="card-body">
-                        <form id="todo-list-form" method="POST" action="{{ url_for('new_todo') }}">
+                        <form id="todo-list-form" method="POST" action="{{ url_for('old_todo', user_id=user_id, todo_id=todo_list.id) }}">
                             <div class="mb-4">
                                 <input
                                     type="text"
@@ -32,17 +32,26 @@
                                     {% for item in items %}
                                         <li class="todo-item">
                                             <div class="todo-left">
-                                                <input type="checkbox" class="checkbox">
+                                                <input type="checkbox" name="item_{{ item.id }}_completed"
+                                                {% if item.completed %}checked{% endif %}>
+
                                                 <span class="ms-2">{{ item.text }}</span>
+
+                                                <input type="hidden"
+                                                    name="item_{{ item.id }}_text"
+                                                    class="item-edit-input form-control d-none"
+                                                    value="{{ item.text }}">
                                             </div>
+
                                             <div class="todo-right">
-                                                <button type="button" class="btn btn-link btn-sm edit-btn">
+                                                <button type="button" class="btn btn-link btn-sm edit-btn" data-item-id="{{ item.id }}">
                                                     <img src="{{ url_for('static', filename='icons/edit.png') }}" alt="Edit" width="18" height="18">
                                                 </button>
-                                                <button type="button" class="btn btn-link btn-sm delete-btn">
+                                                <button type="button" class="btn btn-link btn-sm delete-btn" data-item-id="{{ item.id }}">
                                                     <img src="{{ url_for('static', filename='icons/delete.png') }}" alt="Delete" width="18" height="18">
                                                 </button>
                                             </div>
+
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -55,9 +64,9 @@
                             <!-- Hidden container for server submission -->
                             <div id="hidden-items"></div>
 
-                            <button type="submit" class="btn btn-secondary w-30 todo-list-update-btn">Update</button>
+                            <button type="submit" class="btn btn-secondary w-30 todo-list-update-btn" value="update">Update</button>
                             <span class="mx-2"> </span>
-                            <button type="submit" class="btn btn-primary w-30 todo-list-create-btn">Save As</button>
+                            <button type="submit" class="btn btn-primary w-30 todo-list-create-btn" value="save_as">Save As</button>
                         </form>
                     </div>
                 </div>

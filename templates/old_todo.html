@@ -17,7 +17,7 @@
                                     name="title"
                                     id="list-title-input"
                                     class="form-control form-control-lg fw-bold todo-list-title-input"
-                                    placeholder="To do list title - Type here to set title"
+                                    placeholder="Edit title"
                                     value="{{ todo_list.title }}"
                                     >
                             </div>
@@ -32,14 +32,18 @@
                                     {% for item in items %}
                                         <li class="todo-item">
                                             <div class="todo-left">
-                                                <input type="checkbox" name="item_{{ item.id }}_completed"
+                                                <input type="checkbox"
+                                                class="completed-checkbox"
+                                                name="item_{{ item.id }}_completed"
                                                 {% if item.completed %}checked{% endif %}>
 
-                                                <span class="ms-2">{{ item.text }}</span>
+                                                <!-- visible text -->
+                                                <span class="item-text ms-2 {% if item.completed %}completed{% endif %}">{{ item.text }}</span>
 
-                                                <input type="hidden"
+                                                <!-- hidden text input for editing -->
+                                                <input type="text"
+                                                    class="item-edit-input form-control d-none ms-2"
                                                     name="item_{{ item.id }}_text"
-                                                    class="item-edit-input form-control d-none"
                                                     value="{{ item.text }}">
                                             </div>
 

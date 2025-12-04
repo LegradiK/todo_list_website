@@ -501,6 +501,11 @@ body, html {
     flex-shrink: 0; /* prevent buttons from shrinking */
 }
 
+.completed {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
 .edit-btn {
     background-color: var(--transparent);
     color: var(--white);

@@ -102,7 +102,12 @@ def old_todo(user_id, todo_id):
 
         if request.method == 'POST':
 
-            # 1 UPDATE EXISTING ITEMS
+            new_title = request.form.get("title")
+            if new_title and new_title.strip():
+                todo_list.title = new_title.strip()
+
+
+            # UPDATE EXISTING ITEMS
             items = ToDoItem.query.filter_by(list_id=todo_id).all()
 
             for item in items:
@@ -114,7 +119,7 @@ def old_todo(user_id, todo_id):
 
                 item.completed = item_completed
 
-            #  ADD NEW ITEMS
+            # ADD NEW ITEMS
             new_items = request.form.getlist("items")
 
             for text in new_items:

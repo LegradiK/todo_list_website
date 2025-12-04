@@ -101,6 +101,19 @@
         }
     });
 
+    document.addEventListener("change", function (event) {
+        if (event.target.classList.contains("completed-checkbox")) {
+            let item = event.target.closest(".todo-item");
+            let text = item.querySelector(".item-text");
+
+            if (event.target.checked) {
+                text.classList.add("completed");
+            } else {
+                text.classList.remove("completed");
+            }
+        }
+    });
+
 
   });
 })(jQuery);

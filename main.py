@@ -62,6 +62,17 @@ def home():
 def about():
     return render_template('about.html')
 
+@app.route('/profile/<int:user_id>', methods=['GET', 'POST'])
+def profile(user_id):
+    if 'user_id' not in session or session['user_id'] != user_id:
+        flash("You do not have access to this profile.", "danger")
+        return redirect(url_for('home'))
+
+    user = User.query.get_or_404(user_id)
+    user_id = session['user_id']
+    items = ToDoItem.query.filter_by(user_id=user_id).all()
+    return render_template('profile.html', user=user, user_id=user_id, items=items)
+
 @app.route('/new_todo', methods=['GET', 'POST'])
 def new_todo():
     if 'user_id' not in session:

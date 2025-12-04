@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}To Do List{% endblock %}
+
+{% block content %}
+
+<h2>{{ user.first_name }}'s To-Do Lists</h2>
+
+{% if user_id %}
+    <div class="container mt-4">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5 mt-3">
+            {% for item in items %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.title }}</h5>
+                            <p class="card-text">
+                                {% for i in range 5 %}
+                                    {% if i < item.completed_count %}
+                                        <span class="text-success">&#10003;</span>
+                                    {% else %}
+                                        <span class="text-muted">&#10003;</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+
+                            <a href="{{ cafe.map_url }}" target="_blank" class="btn btn-primary btn-sm">View on Map</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}

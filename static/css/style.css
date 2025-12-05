@@ -12,6 +12,7 @@
   --white: #fff;
   --gray: #6c757d;
   --gray-dark: #343a40;
+  --gray-light: #bdbebf;
   --primary: #DA9F5B;       /* Navbar color */
   --secondary: #33211D;     /* Sidebar background */
   --third:#87603C;
@@ -107,7 +108,7 @@ body, html {
     padding-top: 70px;  /* height of navbar */
     padding-bottom: 60px; /* height of footer */
     padding: 1rem;
-    background-color: var(--gray-light);
+    background-color: white;
     min-height: calc(100vh - 130px); /* full height minus navbar and footer */
 }
 
@@ -242,18 +243,18 @@ body, html {
 
 /* Padding utilities */
 .padding {
-    padding: 5rem;
+    padding: 2rem;
 }
 
 @media (max-width: 991.98px) {
     .padding {
-        padding: 1.5rem;
+        padding: 1rem;
     }
 }
 
 @media (max-width: 767.98px) {
     .padding {
-        padding: 1rem;
+        padding: 1rem auto;
     }
 }
 
@@ -271,7 +272,7 @@ body, html {
     box-shadow: none;
 
     /* Equal margins on all sides */
-    margin: 2rem auto; /* adjust the value as needed */
+    margin: 1rem 2rem; /* adjust the value as needed */
 
 }
 
@@ -524,3 +525,35 @@ body, html {
     background-color: var(--secondary);
 }
 
+.todo-list-title-input {
+    flex: 1;  /* takes remaining space */
+}
+
+.task-tempo-dropdown .btn {
+    background-color: transparent;   /* same as Add button */
+    color: var(--black);                       /* remove outline */
+    padding: 0.75rem 1.2rem;            /* same padding as Add button */
+    font-size: 1.0rem;                   /* same as Add button font size */
+    font-weight: 500;
+    border-radius: 4px;                  /* same as other buttons */
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;                         /* space between icon & text */
+    margin-top: 1rem;                        /* align with title input */
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    border: var(--gray-light) 1px solid;
+}
+
+.task-tempo-dropdown .btn:hover {
+    background-color: #c8904b; /* slightly darker shade of primary for hover */
+}
+
+.task-tempo-dropdown .dropdown-toggle {
+    min-width: 160px;   /* set a fixed minimum width */
+    max-width: 160px;   /* set a fixed maximum width (same as min-width) */
+    text-align: left;   /* optional: align text nicely */
+    white-space: nowrap; /* prevent wrapping */
+}

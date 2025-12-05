@@ -19,7 +19,21 @@
         {% if session.get('user_id') %}
             {% for todo in old_todos %}
             <li class="nav-item">
-                <a href="/{{ session.user_id }}/old_todo/{{ todo.id }}" class="nav-link">{{ todo.title }}</a>
+                <a href="/{{ session.user_id }}/old_todo/{{ todo.id }}" class="nav-link">
+                    {% if todo.task_urgency == 'immediate' %}
+                        <img src="{{ url_for('static', filename='icons/red_circle.png') }}"
+                        alt="" width="20" class="me-2">
+                    {% elif todo.task_urgency == 'timely' %}
+                        <img src="{{ url_for('static', filename='icons/orange_circle.png') }}"
+                        alt="" width="20" class="me-2">
+                    {% elif todo.task_urgency == 'flexible' %}
+                        <img src="{{ url_for('static', filename='icons/green_circle.png') }}"
+                        alt="" width="20" class="me-2">
+                    {% endif %}
+                    <span class="text-truncate" style="max-width: calc(100% - 20px);">
+                        {{ todo.title }}
+                    </span>
+                </a>
             </li>
             {% endfor %}
         {% endif %}

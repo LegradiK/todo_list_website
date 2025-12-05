@@ -113,7 +113,33 @@
             }
         }
     });
+    document.querySelectorAll('.task-tempo-dropdown .dropdown-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();  // prevent default anchor behaviour
 
+            const value = this.getAttribute('data-value'); // "immediate", "timely", "flexible"
+            const text = this.textContent.trim();           // text like "Immediate"
+
+            // Set hidden input value
+            document.getElementById('taskTempoValue').value = value;
+
+            // Update button text
+            const button = this.closest('.task-tempo-dropdown').querySelector('button.dropdown-toggle');
+            button.innerHTML = `<img src="${this.querySelector('img').src}" width="20" class="me-2"> ${text}`;
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+        const hiddenInput = document.getElementById('taskTempoValue');
+        const button = document.querySelector('.task-tempo-dropdown button.dropdown-toggle');
+        const iconMap = {
+            "immediate": "/static/icons/red_circle.png",
+            "timely": "/static/icons/orange_circle.png",
+            "flexible": "/static/icons/green_circle.png"
+        };
+
+        const value = hiddenInput.value || "flexible"; // default
+        button.innerHTML = `<img src="${iconMap[value]}" width="20" class="me-2"> ${value.charAt(0).toUpperCase() + value.slice(1)}`;
+    });
 
   });
 })(jQuery);

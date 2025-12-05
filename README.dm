@@ -9,3 +9,10 @@ to do list icon
 <a href="https://www.flaticon.com/free-icons/to-do-list" title="to do list icons">To do list icons created by Freepik - Flaticon</a>
 edit icon
 <a href="https://www.flaticon.com/free-icons/edit" title="edit icons">Edit icons created by Freepik - Flaticon</a>
+red circle
+<a href="https://www.flaticon.com/free-icons/red" title="red icons">Red icons created by hqrloveq - Flaticon</a>
+green circle
+<a href="https://www.flaticon.com/free-icons/rec" title="rec icons">Rec icons created by hqrloveq - Flaticon</a>
+orange circle
+<a href="https://www.flaticon.com/free-icons/circle" title="circle icons">Circle icons created by Designspace Team - Flaticon</a>
+

@@ -11,7 +11,7 @@
                 <div class="card px-3">
                     <div class="card-body">
                         <form id="todo-list-form" method="POST" action="{{ url_for('old_todo', user_id=user_id, todo_id=todo_list.id) }}">
-                            <div class="mb-4">
+                            <div class="mb-4 d-flex align-items-start gap-2">
                                 <input
                                     type="text"
                                     name="title"
@@ -20,6 +20,40 @@
                                     placeholder="Edit title"
                                     value="{{ todo_list.title }}"
                                     >
+                                <div class="dropdown task-tempo-dropdown features">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                            id="taskTempoMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="{{ url_for('static', filename='icons/check-list.png') }}"
+                                            alt="" width="20" class="me-2">
+                                        Task Urgency
+                                    </button>
+
+                                    <ul class="dropdown-menu features" aria-labelledby="taskTempoMenu">
+                                        <li>
+                                            <a class="dropdown-item d-flex align-items-center" data-value="immediate" href="#">
+                                                <img src="{{ url_for('static', filename='icons/red_circle.png') }}"
+                                                    alt="" width="20" class="me-2">
+                                                Immediate
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item d-flex align-items-center" data-value="timely" href="#">
+                                                <img src="{{ url_for('static', filename='icons/orange_circle.png') }}"
+                                                    alt="" width="20" class="me-2">
+                                                Timely
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item d-flex align-items-center" data-value="flexible" href="#">
+                                                <img src="{{ url_for('static', filename='icons/green_circle.png') }}"
+                                                    alt="" width="20" class="me-2">
+                                                Flexible
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <input type="hidden" name="features" id="taskTempoValue" value="{{ todo_list.task_urgency or 'flexible' }}">
+                                </div>
                             </div>
 
                             <div class="add-items d-flex mb-3">

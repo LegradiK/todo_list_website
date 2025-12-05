@@ -21,6 +21,8 @@ class ToDoList(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     owner = db.relationship('User', back_populates='lists')
 
+    task_urgency = db.Column(db.String(100), nullable=False, default="flexible")
+
     items = db.relationship('ToDoItem', back_populates='list', lazy=True, cascade="all, delete")
 
 
@@ -50,8 +52,7 @@ with app.app_context():
     db.create_all()
     # Sample data
     if not User.query.first():
-        db.session.add(User(first_name="Alice", last_name="Johnson", email="alice@example.com", password=generate_password_hash("11111")))
-        db.session.add(User(first_name="Bob", last_name="Smith", email="bob@example.com", password=generate_password_hash("22222")))
+        db.session.add(User(first_name="Super", last_name="Admin", email="admin@gmail.com", password=generate_password_hash("11111")))
         db.session.commit()
 
 @app.route('/')
@@ -81,10 +82,15 @@ def new_todo():
 
     if request.method == 'POST':
         title = request.form.get("title") or "Untitled List"
+        urgency = request.form.get('features') or 'flexible'
         items = request.form.getlist("items")  # All tasks submitted via hidden inputs
 
         # Create new ToDoList
-        todo_list = ToDoList(title=title, user_id=session['user_id'])
+        todo_list = ToDoList(
+            title=title,
+            task_urgency=urgency,
+            user_id=session['user_id']
+        )
         db.session.add(todo_list)
         db.session.flush()  # Get todo_list.id without committing
 
@@ -117,6 +123,9 @@ def old_todo(user_id, todo_id):
             if new_title and new_title.strip():
                 todo_list.title = new_title.strip()
 
+            new_urgency = request.form.get("features")
+            if new_urgency and new_urgency != todo_list.task_urgency:
+                todo_list.task_urgency = new_urgency
 
             # UPDATE EXISTING ITEMS
             items = ToDoItem.query.filter_by(list_id=todo_id).all()
@@ -137,6 +146,7 @@ def old_todo(user_id, todo_id):
                 if text.strip():
                     db.session.add(ToDoItem(
                         text=text,
+                        task_urgency=todo_list.task_urgency,
                         list_id=todo_list.id,
                         user_id=session['user_id']
                     ))
@@ -177,6 +187,7 @@ def login():
         password = request.form.get('password')
         user = User.query.filter_by(email=email).first()
         if user and check_password_hash(user.password, password):
+            session.permanent = False  # important: expires on browser close
             # Login successful
             session['first_name'] = user.first_name
             session['last_name'] = user.last_name
@@ -220,7 +231,7 @@ def signup():
 
     return render_template('login_signup.html')
 
-@app.route('/logout')
+@app.route('/logout', methods=['POST'])
 def logout():
     session.pop('first_name', None)
     session.pop('last_name', None)
@@ -228,6 +239,9 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('home'))
 
+@app.before_request
+def make_session_non_permanent():
+    session.permanent = False
 
 
 if __name__ == '__main__':

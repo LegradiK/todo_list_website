@@ -139,7 +139,9 @@
 
         const value = hiddenInput.value || "flexible"; // default
         button.innerHTML = `<img src="${iconMap[value]}" width="20" class="me-2"> ${value.charAt(0).toUpperCase() + value.slice(1)}`;
-    });
 
+
+
+    });
   });
 })(jQuery);

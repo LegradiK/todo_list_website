@@ -14,6 +14,12 @@ bootstrap = Bootstrap5(app)
 
 EMAIL_REGEX = r'^[\w\.-]+@[\w\.-]+\.\w+$'
 
+URGENCY_ORDER = {
+    "immediate": 1,
+    "timely": 2,
+    "flexible": 3
+}
+
 class ToDoList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
@@ -111,6 +117,7 @@ def new_todo():
 
 @app.route('/<int:user_id>/old_todo/<int:todo_id>', methods=['GET', 'POST'])
 def old_todo(user_id, todo_id):
+
     todo_list = ToDoList.query.get_or_404(todo_id)
     if 'user_id' not in session or todo_list.user_id != session['user_id']:
         flash("You do not have access to this to-do list.", "danger")
@@ -155,7 +162,6 @@ def old_todo(user_id, todo_id):
             flash("To-do list updated!", "success")
             return redirect(url_for('old_todo', user_id=user_id, todo_id=todo_id))
 
-
         items = ToDoItem.query.filter_by(list_id=todo_id).all()
         return render_template('old_todo.html', user_id=session['user_id'], todo_list=todo_list, items=items)
 
@@ -176,7 +182,8 @@ def delete_item(item_id):
 def inject_user_todos():
     if 'user_id' in session:
         todos = ToDoList.query.filter_by(user_id=session['user_id']).all()
-        return dict(old_todos=todos)
+        sorted_old_todos = sorted(todos, key=lambda t: URGENCY_ORDER.get(t.task_urgency, 99))
+        return dict(old_todos=sorted_old_todos)
     return dict(old_todos=[])
 
 

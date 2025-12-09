@@ -4,6 +4,7 @@ import re
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import date
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'todolist.db')}"
@@ -14,11 +15,17 @@ bootstrap = Bootstrap5(app)
 
 EMAIL_REGEX = r'^[\w\.-]+@[\w\.-]+\.\w+$'
 
+UPPERCASE_ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+LOWERCASE_ABC = "abcdefghijklmnopqrstuvwxyz"
+DIGITS = "0123456789"
+SYMBOLS = "!@#$%^&*()-_=+[];:,.<>?/|~`"
+
 URGENCY_ORDER = {
     "immediate": 1,
     "timely": 2,
     "flexible": 3
 }
+
 
 class ToDoList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -28,6 +35,9 @@ class ToDoList(db.Model):
     owner = db.relationship('User', back_populates='lists')
 
     task_urgency = db.Column(db.String(100), nullable=False, default="flexible")
+
+    created_date = db.Column(db.Date, nullable=False, default=date.today)
+    due_date = db.Column(db.Date, nullable=False)
 
     items = db.relationship('ToDoItem', back_populates='list', lazy=True, cascade="all, delete")
 
@@ -90,12 +100,14 @@ def new_todo():
         title = request.form.get("title") or "Untitled List"
         urgency = request.form.get('features') or 'flexible'
         items = request.form.getlist("items")  # All tasks submitted via hidden inputs
+        due_date = date.fromisoformat(request.form.get("due_date"))
 
         # Create new ToDoList
         todo_list = ToDoList(
             title=title,
             task_urgency=urgency,
-            user_id=session['user_id']
+            user_id=session['user_id'],
+            due_date=due_date
         )
         db.session.add(todo_list)
         db.session.flush()  # Get todo_list.id without committing
@@ -154,6 +166,7 @@ def old_todo(user_id, todo_id):
                     db.session.add(ToDoItem(
                         text=text,
                         task_urgency=todo_list.task_urgency,
+                        due_date=todo_list.due_date,
                         list_id=todo_list.id,
                         user_id=session['user_id']
                     ))
@@ -161,6 +174,7 @@ def old_todo(user_id, todo_id):
             db.session.commit()
             flash("To-do list updated!", "success")
             return redirect(url_for('old_todo', user_id=user_id, todo_id=todo_id))
+
 
         items = ToDoItem.query.filter_by(list_id=todo_id).all()
         return render_template('old_todo.html', user_id=session['user_id'], todo_list=todo_list, items=items)
@@ -218,11 +232,24 @@ def signup():
         # Check if email is valid
         if not re.match(EMAIL_REGEX, email):
             flash("Please enter a valid email address.", "danger")
-            return redirect(url_for('signup'))
+            return redirect(url_for('signup', tab='signup'))
+
+        if len(password) <= 8:
+            flash("Password needs to be more than 8 characters including at least one of these: alphabets lowercase and upper case, digit and symbol.", "danger")
+            return redirect(url_for('signup', tab='signup'))
+
+        has_upper = any(ch in UPPERCASE_ABC for ch in password)
+        has_lower = any(ch in UPPERCASE_ABC for ch in password)
+        has_digit = any(ch in UPPERCASE_ABC for ch in password)
+        has_symbol = any(ch in UPPERCASE_ABC for ch in password)
+
+        if not (has_upper and has_lower and has_digit and has_symbol):
+            flash("Password must include at least one uppercase letter, one lowercase letter, one number, and one symbol.", "danger")
+            return redirect(url_for('signup', tab='signup'))
 
         if password != confirm_password:
             flash("Passwords do not match.", "danger")
-            return redirect(url_for('signup'))
+            return redirect(url_for('signup', tab='signup'))
 
         # Optional: check if user already exists
         if User.query.filter_by(email=email).first():
@@ -238,7 +265,7 @@ def signup():
 
     return render_template('login_signup.html')
 
-@app.route('/logout', methods=['POST'])
+@app.route('/logout', methods=['GET', 'POST'])
 def logout():
     session.pop('first_name', None)
     session.pop('last_name', None)

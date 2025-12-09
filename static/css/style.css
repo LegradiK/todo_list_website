@@ -557,3 +557,37 @@ body, html {
     text-align: left;   /* optional: align text nicely */
     white-space: nowrap; /* prevent wrapping */
 }
+
+.due-date-btn {
+    background-color: var(--gray-light);
+    color: var(--white);
+    border: none;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.875rem;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.bottom-btn-p {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* pushes the p to the right */
+}
+
+.bottom-btn-p .btn-group button {
+    margin-right: 0.5rem; /* space between buttons */
+}
+
+.bottom-btn-p .created-date {
+    margin: 0; /* remove extra bottom margin */
+    white-space: nowrap; /* optional, prevent wrapping */
+    color: var(--gray-dark);
+    font-size: 1.0rem;
+    text-decoration: underline;
+}

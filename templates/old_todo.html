@@ -12,6 +12,9 @@
                     <div class="card-body">
                         <form id="todo-list-form" method="POST" action="{{ url_for('old_todo', user_id=user_id, todo_id=todo_list.id) }}">
                             <div class="mb-4 d-flex align-items-start gap-2">
+                                <p class="mb-5 due-date">Due date: {{ todo_list.due_date }}</p>
+                            </div>
+                            <div class="mb-4 d-flex align-items-start gap-2">
                                 <input
                                     type="text"
                                     name="title"
@@ -28,7 +31,7 @@
                                         Task Urgency
                                     </button>
 
-                                    <ul class="dropdown-menu features" aria-labelledby="taskTempoMenu">
+                                    <ul class="dropdown-menu features" aria-labelledby="taskTempoButton">
                                         <li>
                                             <a class="dropdown-item d-flex align-items-center" data-value="immediate" href="#">
                                                 <img src="{{ url_for('static', filename='icons/red_circle.png') }}"
@@ -101,10 +104,13 @@
 
                             <!-- Hidden container for server submission -->
                             <div id="hidden-items"></div>
-
-                            <button type="submit" class="btn btn-secondary w-30 todo-list-update-btn" value="update">Update</button>
-                            <span class="mx-2"> </span>
-                            <button type="submit" class="btn btn-primary w-30 todo-list-create-btn" value="save_as">Save As</button>
+                            <div class="bottom-btn-p d-flex align-items-center justify-content-between">
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-secondary w-30 todo-list-update-btn" value="update">Update</button>
+                                    <button type="submit" class="btn btn-primary w-30 todo-list-create-btn" value="save_as">Save As</button>
+                                </div>
+                                <p class="created-date mb-0">Created on  {{ todo_list.created_date }}</p>
+                            </div>
                         </form>
                     </div>
                 </div>

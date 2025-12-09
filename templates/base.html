@@ -50,6 +50,26 @@
         });
         var deleteIconURL = "{{ url_for('static', filename='icons/delete.png') }}";
         var editIconURL = "{{ url_for('static', filename='icons/edit.png') }}";
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const hiddenInput = document.getElementById('taskTempoValue');
+            const button = document.querySelector('.task-tempo-dropdown button.dropdown-toggle');
+
+            const iconMap = {
+                "immediate": "/static/icons/red_circle.png",
+                "timely": "/static/icons/orange_circle.png",
+                "flexible": "/static/icons/green_circle.png"
+            };
+
+            const value = hiddenInput?.value || "flexible";
+
+            button.innerHTML = `
+                <img src="${iconMap[value]}" width="20" class="me-2">
+                ${value.charAt(0).toUpperCase() + value.slice(1)}
+            `;
+        });
+
+
     </script>
 
     <!-- Template Javascript -->

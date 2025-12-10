@@ -399,6 +399,7 @@ body, html {
     color: var(--secondary);
     background-color: #FFF5E6;
     text-align: center;
+    margin-top: 3rem;
     margin-bottom: 1rem;
     border: none;
     border-bottom: 2px solid #FFF5E6;
@@ -504,6 +505,7 @@ body, html {
 
 .completed {
     text-decoration: line-through;
+    color: var(--secondary);
     opacity: 0.6;
 }
 
@@ -548,7 +550,7 @@ body, html {
 }
 
 .task-tempo-dropdown .btn:hover {
-    background-color: #c8904b; /* slightly darker shade of primary for hover */
+    background-color: var(--primary);
 }
 
 .task-tempo-dropdown .dropdown-toggle {
@@ -558,19 +560,32 @@ body, html {
     white-space: nowrap; /* prevent wrapping */
 }
 
+.due-date-small-note {
+    color: var(--secondary);
+}
+
 .due-date-btn {
-    background-color: var(--gray-light);
-    color: var(--white);
-    border: none;
-    padding: 0.6rem 0.8rem;
-    font-size: 0.875rem;
-    border-radius: 4px;
+    background-color: transparent;
+    color: var(--black);                       /* remove outline */
+    padding: 0.70rem 0.83rem;            /* same padding as Add button */
+    font-size: 1.0rem;                   /* same as Add button font size */
+    font-weight: 500;
+    border-radius: 4px;                  /* same as other buttons */
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;                         /* space between icon & text */
+    margin-top: 1rem;                        /* align with title input */
     text-decoration: none;
-    display: inline-block;
-    margin-left: 1rem;
-    margin-right: 1rem;
     transition: background-color 0.3s ease;
+    border: var(--gray-light) 1px solid;
+}
+
+.due-date-btn:hover {
+    background-color: var(--primary);
+    color: white; /* optional: ensures text is readable */
+    border-color: var(--primary);
 }
 
 .bottom-btn-p {
@@ -590,4 +605,13 @@ body, html {
     color: var(--gray-dark);
     font-size: 1.0rem;
     text-decoration: underline;
+}
+
+.due-date {
+    color: var(--secondary);
+    font-size: 1.2rem;
+}
+
+.space-between {
+    margin-right: 11rem;
 }

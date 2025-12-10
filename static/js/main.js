@@ -116,15 +116,23 @@
     document.addEventListener("DOMContentLoaded", function() {
         const hiddenInput = document.getElementById('taskTempoValue');
         const button = document.querySelector('.task-tempo-dropdown button.dropdown-toggle');
+        const taskUrgency = document.getElementById('taskTempoMenu')
         const iconMap = {
             "immediate": "/static/icons/red_circle.png",
             "timely": "/static/icons/orange_circle.png",
             "flexible": "/static/icons/green_circle.png"
         };
 
-        const value = hiddenInput.value || "flexible"; // default
+        const value = hiddenInput.value;
 
-        button.innerHTML = `<img src="${iconMap[value]}" width="20" class="me-2"> ${value.charAt(0).toUpperCase() + value.slice(1)}`;
+        if (!value) {
+        button.innerHTML = taskUrgency.value;
+        } else {
+            // (This is used only when editing lists)
+            button.innerHTML =
+                `<img src="${iconMap[value]}" width="20" class="me-2">
+                ${value.charAt(0).toUpperCase() + value.slice(1)}`;
+        }
     });
     document.querySelectorAll('.task-tempo-dropdown .dropdown-item').forEach(item => {
         item.addEventListener('click', function(e) {

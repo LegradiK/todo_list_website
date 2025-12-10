@@ -12,9 +12,6 @@
                     <div class="card-body">
                         <form id="todo-list-form" method="POST" action="{{ url_for('old_todo', user_id=user_id, todo_id=todo_list.id) }}">
                             <div class="mb-4 d-flex align-items-start gap-2">
-                                <p class="mb-5 due-date">Due date: {{ todo_list.due_date }}</p>
-                            </div>
-                            <div class="mb-4 d-flex align-items-start gap-2">
                                 <input
                                     type="text"
                                     name="title"
@@ -109,6 +106,7 @@
                                     <button type="submit" class="btn btn-secondary w-30 todo-list-update-btn" value="update">Update</button>
                                     <button type="submit" class="btn btn-primary w-30 todo-list-create-btn" value="save_as">Save As</button>
                                 </div>
+                                <p class="due-date space-between mb-0">Due date: {{ todo_list.due_date }}</p>
                                 <p class="created-date mb-0">Created on  {{ todo_list.created_date }}</p>
                             </div>
                         </form>

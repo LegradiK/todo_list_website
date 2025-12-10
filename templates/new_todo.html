@@ -19,40 +19,43 @@
                                     class="form-control form-control-lg fw-bold todo-list-title-input"
                                     placeholder="To do list title - Type here to set title"
                                 >
+                                <div>
+                                    <small class="due-date-small-note">Due Date / Urgency</small><br>
+                                    <input class="due-date-btn" type="date" name="due_date">
+                                    <div class="dropdown task-tempo-dropdown features">
+                                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                                id="taskTempoMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src="{{ url_for('static', filename='icons/check-list.png') }}"
+                                                alt="" width="20" class="me-2">
+                                            Task Urgency
+                                        </button>
 
-                                <div class="dropdown task-tempo-dropdown features">
-                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                            id="taskTempoMenu" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="{{ url_for('static', filename='icons/check-list.png') }}"
-                                            alt="" width="20" class="me-2">
-                                        Task Urgency
-                                    </button>
+                                        <ul class="dropdown-menu features" aria-labelledby="taskTempoMenu">
+                                            <li>
+                                                <a class="dropdown-item d-flex align-items-center" data-value="immediate" href="#">
+                                                    <img src="{{ url_for('static', filename='icons/red_circle.png') }}"
+                                                        alt="" width="20" class="me-2">
+                                                    Immediate
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item d-flex align-items-center" data-value="timely" href="#">
+                                                    <img src="{{ url_for('static', filename='icons/orange_circle.png') }}"
+                                                        alt="" width="20" class="me-2">
+                                                    Timely
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item d-flex align-items-center" data-value="flexible" href="#">
+                                                    <img src="{{ url_for('static', filename='icons/green_circle.png') }}"
+                                                        alt="" width="20" class="me-2">
+                                                    Flexible
+                                                </a>
+                                            </li>
+                                        </ul>
 
-                                    <ul class="dropdown-menu features" aria-labelledby="taskTempoMenu">
-                                        <li>
-                                            <a class="dropdown-item d-flex align-items-center" data-value="immediate" href="#">
-                                                <img src="{{ url_for('static', filename='icons/red_circle.png') }}"
-                                                    alt="" width="20" class="me-2">
-                                                Immediate
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item d-flex align-items-center" data-value="timely" href="#">
-                                                <img src="{{ url_for('static', filename='icons/orange_circle.png') }}"
-                                                    alt="" width="20" class="me-2">
-                                                Timely
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item d-flex align-items-center" data-value="flexible" href="#">
-                                                <img src="{{ url_for('static', filename='icons/green_circle.png') }}"
-                                                    alt="" width="20" class="me-2">
-                                                Flexible
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                    <input type="hidden" name="features" id="taskTempoValue" value="flexible">
+                                        <input type="hidden" name="features" id="taskTempoValue" value="">
+                                    </div>
                                 </div>
                             </div>
 
@@ -70,7 +73,6 @@
                             <!-- Hidden container for server submission -->
                             <div id="hidden-items"></div>
                             <div class="d-flex align-items-center gap-2 mt-3">
-                                <input class="due-date-btn" type="date" name="due_date">
                                 <button type="submit" class="btn btn-primary todo-list-create-btn">Create List</button>
                             </div>
                         </form>

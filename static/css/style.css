@@ -534,7 +534,7 @@ body, html {
 .task-tempo-dropdown .btn {
     background-color: transparent;   /* same as Add button */
     color: var(--black);                       /* remove outline */
-    padding: 0.75rem 1.2rem;            /* same padding as Add button */
+    padding: 0.75rem 5.5rem;            /* same padding as Add button */
     font-size: 1.0rem;                   /* same as Add button font size */
     font-weight: 500;
     border-radius: 4px;                  /* same as other buttons */
@@ -567,7 +567,7 @@ body, html {
 .due-date-btn {
     background-color: transparent;
     color: var(--black);                       /* remove outline */
-    padding: 0.70rem 0.83rem;            /* same padding as Add button */
+    padding: 0.6rem 1.4rem;            /* same padding as Add button */
     font-size: 1.0rem;                   /* same as Add button font size */
     font-weight: 500;
     border-radius: 4px;                  /* same as other buttons */

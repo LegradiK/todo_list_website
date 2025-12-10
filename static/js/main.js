@@ -126,11 +126,11 @@
         const value = hiddenInput.value;
 
         if (!value) {
-        button.innerHTML = taskUrgency.value;
+          button.innerHTML = taskUrgency.value;
         } else {
             // (This is used only when editing lists)
             button.innerHTML =
-                `<img src="${iconMap[value]}" width="20" class="me-2">
+                `<img src="${iconMap[value]}" width="20" class="me-1">
                 ${value.charAt(0).toUpperCase() + value.slice(1)}`;
         }
     });

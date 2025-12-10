@@ -51,24 +51,22 @@
         var deleteIconURL = "{{ url_for('static', filename='icons/delete.png') }}";
         var editIconURL = "{{ url_for('static', filename='icons/edit.png') }}";
 
-        document.addEventListener("DOMContentLoaded", function() {
-            const hiddenInput = document.getElementById('taskTempoValue');
-            const button = document.querySelector('.task-tempo-dropdown button.dropdown-toggle');
+        const checkListIcon = "{{ url_for('static', filename='icons/check-list.png') }}";
 
-            const iconMap = {
-                "immediate": "/static/icons/red_circle.png",
-                "timely": "/static/icons/orange_circle.png",
-                "flexible": "/static/icons/green_circle.png"
-            };
+        document.querySelectorAll(".dropdown-item").forEach(function(item) {
+            item.addEventListener("click", function(e) {
+                e.preventDefault();
+                const value = this.getAttribute("data-value");
+                const label = this.innerText.trim();
 
-            const value = hiddenInput?.value || "flexible";
+                // Set hidden input
+                document.getElementById("taskTempoValue").value = value;
 
-            button.innerHTML = `
-                <img src="${iconMap[value]}" width="20" class="me-2">
-                ${value.charAt(0).toUpperCase() + value.slice(1)}
-            `;
+                // Update button text
+                document.getElementById("taskTempoMenu").innerHTML =
+                    `<img src="${checkListIcon}" alt="" width="20" class="me-0"> ${label}`;
+            });
         });
-
 
     </script>
 

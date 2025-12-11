@@ -129,7 +129,7 @@ def new_todo():
 
 @app.route('/<int:user_id>/old_todo/<int:todo_id>', methods=['GET', 'POST'])
 def old_todo(user_id, todo_id):
-
+    today = date.today()
     todo_list = ToDoList.query.get_or_404(todo_id)
     if 'user_id' not in session or todo_list.user_id != session['user_id']:
         flash("You do not have access to this to-do list.", "danger")
@@ -145,6 +145,13 @@ def old_todo(user_id, todo_id):
             new_urgency = request.form.get("features")
             if new_urgency and new_urgency != todo_list.task_urgency:
                 todo_list.task_urgency = new_urgency
+
+            raw_due_date = request.form.get("due_date")
+            if raw_due_date:
+                new_due_date = date.fromisoformat(raw_due_date)
+
+                if new_due_date != todo_list.due_date:
+                    todo_list.due_date = new_due_date
 
             # UPDATE EXISTING ITEMS
             items = ToDoItem.query.filter_by(list_id=todo_id).all()
@@ -177,7 +184,7 @@ def old_todo(user_id, todo_id):
 
 
         items = ToDoItem.query.filter_by(list_id=todo_id).all()
-        return render_template('old_todo.html', user_id=session['user_id'], todo_list=todo_list, items=items)
+        return render_template('old_todo.html', user_id=session['user_id'], todo_list=todo_list, items=items, today=today)
 
 @app.route('/delete_item/<int:item_id>', methods=['POST'])
 def delete_item(item_id):

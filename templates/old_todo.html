@@ -22,7 +22,13 @@
                                     >
                                 <div>
                                     <small class="due-date-small-note">Due Date / Urgency</small><br>
-                                    <input class="due-date-btn" type="date" name="due_date">
+                                    <input
+                                        class="due-date-btn"
+                                        type="date"
+                                        name="due_date"
+                                        id="due_date"
+                                        value="{{ todo_list.due_date }}"
+                                    >
                                     <div class="dropdown task-tempo-dropdown features">
                                         <button class="btn btn-outline-secondary dropdown-toggle" type="button"
                                                 id="taskTempoButton" data-bs-toggle="dropdown" aria-expanded="false">

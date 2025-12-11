@@ -15,4 +15,5 @@ green circle
 <a href="https://www.flaticon.com/free-icons/rec" title="rec icons">Rec icons created by hqrloveq - Flaticon</a>
 orange circle
 <a href="https://www.flaticon.com/free-icons/circle" title="circle icons">Circle icons created by Designspace Team - Flaticon</a>
-
+warning mark
+<a href="https://www.flaticon.com/free-icons/exclamation-mark" title="exclamation mark icons">Exclamation mark icons created by Creatype - Flaticon</a>

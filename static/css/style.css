@@ -482,6 +482,24 @@ body, html {
     background-color: var(--secondary);
 }
 
+.delete-list-btn {
+    background-color: var(--transparent);
+    color: var(--white);
+    border: none;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.delete--list-btn:hover {
+    background-color: var(--secondary);
+}
+
 .todo-item {
     display: flex;
     justify-content: space-between; /* left vs right */

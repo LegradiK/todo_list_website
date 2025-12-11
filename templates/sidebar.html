@@ -19,22 +19,37 @@
         {% if session.get('user_id') %}
             {% for todo in old_todos %}
             <li class="nav-item">
-                <a href="/{{ session.user_id }}/old_todo/{{ todo.id }}" class="nav-link">
-                    {% if todo.task_urgency == 'immediate' %}
-                        <img src="{{ url_for('static', filename='icons/red_circle.png') }}"
-                        alt="" width="20" class="me-2">
-                    {% elif todo.task_urgency == 'timely' %}
-                        <img src="{{ url_for('static', filename='icons/orange_circle.png') }}"
-                        alt="" width="20" class="me-2">
-                    {% elif todo.task_urgency == 'flexible' %}
-                        <img src="{{ url_for('static', filename='icons/green_circle.png') }}"
-                        alt="" width="20" class="me-2">
-                    {% endif %}
-                    <span class="text-truncate" style="max-width: calc(100% - 20px);">
-                        {{ todo.title }}
-                    </span>
+                <a href="/{{ session.user_id }}/old_todo/{{ todo.id }}" class="nav-link d-flex justify-content-between align-items-center">
+
+                    <!-- Left side: icon + title -->
+                    <div class="d-flex align-items-center text-truncate" style="max-width: calc(100% - 30px);">
+                        {% if todo.due_date < today %}
+                            <img src="{{ url_for('static', filename='icons/warning.png') }}"
+                                alt="" width="20" class="me-2">
+                        {% else %}
+                            {% if todo.task_urgency == 'immediate' %}
+                                <img src="{{ url_for('static', filename='icons/red_circle.png') }}"
+                                    alt="" width="20" class="me-2">
+                            {% elif todo.task_urgency == 'timely' %}
+                                <img src="{{ url_for('static', filename='icons/orange_circle.png') }}"
+                                    alt="" width="20" class="me-2">
+                            {% elif todo.task_urgency == 'flexible' %}
+                                <img src="{{ url_for('static', filename='icons/green_circle.png') }}"
+                                    alt="" width="20" class="me-2">
+                            {% endif %}
+                        {% endif %}
+
+                        <span class="text-truncate">{{ todo.title }}</span>
+                    </div>
+
+                    <!-- Right side: delete bin -->
+                    <button type="button" class="delete-list-btn">
+                        <img src="{{ url_for('static', filename='icons/delete.png') }}"
+                            alt="Delete" width="20">
+                    </button>
                 </a>
             </li>
+
             {% endfor %}
         {% endif %}
     </ul>

@@ -50,7 +50,16 @@
       }
     });
 
-    // Delete item
+    // Delete item from old-todo-list
+    $('.old-todo-list').on('click', '.delete-btn', function () {
+        const itemId = $(this).data('item-id');
+        const li = $(this).closest('.todo-item');
+
+        $.post(`/delete_item/${itemId}`, function () {
+            li.remove();
+        });
+    });
+        // Delete todo list from sidebar
     $('.old-todo-list').on('click', '.delete-btn', function () {
         const itemId = $(this).data('item-id');
         const li = $(this).closest('.todo-item');

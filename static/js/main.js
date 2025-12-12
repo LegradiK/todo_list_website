@@ -155,6 +155,23 @@
             const button = this.closest('.task-tempo-dropdown').querySelector('button.dropdown-toggle');
             button.innerHTML = `<img src="${this.querySelector('img').src}" width="20" class="me-2"> ${text}`;
         });
-    });
-  });
-})(jQuery);
+        document.addEventListener("DOMContentLoaded", function() {
+            const hiddenInput = document.getElementById('taskTempoValue');
+            const button = document.getElementById('taskTempoButton');
+            const taskUrgency = button.dataset.value;
+            const iconMap = {
+                "immediate": "/static/icons/red_circle.png",
+                "timely": "/static/icons/orange_circle.png",
+                "flexible": "/static/icons/green_circle.png"
+            };
+
+            const value = hiddenInput.value || taskUrgency || "flexible";
+
+            button.innerHTML =
+                `<img src="${iconMap[value]}" width="20" class="me-1">
+                ${value.charAt(0).toUpperCase() + value.slice(1)}`;
+        });
+
+        });
+    })(jQuery);
+});

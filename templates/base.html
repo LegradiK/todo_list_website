@@ -53,6 +53,23 @@
 
         const checkListIcon = "{{ url_for('static', filename='icons/check-list.png') }}";
 
+        document.addEventListener("DOMContentLoaded", function() {
+            const hiddenInput = document.getElementById('taskTempoValue');
+            const button = document.getElementById('taskTempoButton');
+            const taskUrgency = button.dataset.value;
+            const iconMap = {
+                "immediate": "/static/icons/red_circle.png",
+                "timely": "/static/icons/orange_circle.png",
+                "flexible": "/static/icons/green_circle.png"
+            };
+
+            const value = hiddenInput.value || taskUrgency || "flexible";
+
+            button.innerHTML =
+                `<img src="${iconMap[value]}" width="20" class="me-1">
+                ${value.charAt(0).toUpperCase() + value.slice(1)}`;
+        });
+
         document.querySelectorAll(".dropdown-item").forEach(function(item) {
             item.addEventListener("click", function(e) {
                 e.preventDefault();

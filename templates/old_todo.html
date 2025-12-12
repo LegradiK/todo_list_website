@@ -30,8 +30,14 @@
                                         value="{{ todo_list.due_date }}"
                                     >
                                     <div class="dropdown task-tempo-dropdown features">
-                                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                                id="taskTempoButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button
+                                            class="btn btn-outline-secondary dropdown-toggle"
+                                            type="button"
+                                            id="taskTempoButton"
+                                            data-value="{{ todo_list.task_urgency }}"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                        >
                                             <img src="{{ url_for('static', filename='icons/check-list.png') }}"
                                                 alt="" width="20" class="me-2">
                                             Task Urgency

@@ -4,7 +4,7 @@ import re
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import date
+from datetime import date, timedelta
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'todolist.db')}"
@@ -100,9 +100,23 @@ def new_todo():
 
     if request.method == 'POST':
         title = request.form.get("title") or "Untitled List"
-        urgency = request.form.get('features') or 'flexible'
+
+        urgency = request.form.get('features')
+        if not urgency:
+            urgency = "flexible"
+            flash("No Task Urgency selected. 'Flexible' has been set as default.", "warning")
+
         items = request.form.getlist("items")  # All tasks submitted via hidden inputs
-        due_date = date.fromisoformat(request.form.get("due_date"))
+
+        raw_due_date = request.form.get("due_date")
+        if raw_due_date:
+            # User selected a date
+            due_date = date.fromisoformat(raw_due_date)
+        else:
+            # User left it blank → default to 2 weeks from today
+            due_date = date.today() + timedelta(weeks=2)
+            flash("No due date selected. A default date two weeks from today has been set.", "warning")
+
 
         # Create new ToDoList
         todo_list = ToDoList(

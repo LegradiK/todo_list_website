@@ -60,14 +60,14 @@
         });
     });
     // Delete todo list from sidebar
-    $('.delete-list-btn-sidebar').on('click', '.delete-list-btn-sidebar', function (event) {
+    $(document).on('click', '.delete-list-btn-sidebar', function (event) {
         event.preventDefault();
         event.stopPropagation();  // Prevent clicking the link
 
         const listId = $(this).data('list-id');
-        const li = $(this).closest(li);
+        const li = $(this).closest('li');
 
-        $.post(`/delete_item/${listId}`, function () {
+        $.post(`/delete_list/${listId}`, function () {
             li.remove();
         });
     });
@@ -127,24 +127,19 @@
     });
     document.addEventListener("DOMContentLoaded", function() {
         const hiddenInput = document.getElementById('taskTempoValue');
-        const button = document.querySelector('.task-tempo-dropdown button.dropdown-toggle');
-        const taskUrgency = document.getElementById('taskTempoMenu')
+        const button = document.getElementById('taskTempoButton');
+        const taskUrgency = button.dataset.value;
         const iconMap = {
             "immediate": "/static/icons/red_circle.png",
             "timely": "/static/icons/orange_circle.png",
             "flexible": "/static/icons/green_circle.png"
         };
 
-        const value = hiddenInput.value;
+        const value = hiddenInput.value || taskUrgency || "flexible";
 
-        if (!value) {
-          button.innerHTML = taskUrgency.value;
-        } else {
-            // (This is used only when editing lists)
-            button.innerHTML =
-                `<img src="${iconMap[value]}" width="20" class="me-1">
-                ${value.charAt(0).toUpperCase() + value.slice(1)}`;
-        }
+        button.innerHTML =
+            `<img src="${iconMap[value]}" width="20" class="me-1">
+            ${value.charAt(0).toUpperCase() + value.slice(1)}`;
     });
     document.querySelectorAll('.task-tempo-dropdown .dropdown-item').forEach(item => {
         item.addEventListener('click', function(e) {

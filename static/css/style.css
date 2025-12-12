@@ -482,7 +482,7 @@ body, html {
     background-color: var(--secondary);
 }
 
-.delete-list-btn {
+.delete-list-btn-sidebar {
     background-color: var(--transparent);
     color: var(--white);
     border: none;
@@ -496,7 +496,7 @@ body, html {
     transition: background-color 0.3s ease;
 }
 
-.delete--list-btn:hover {
+.delete-list-btn-sidebar:hover {
     background-color: var(--secondary);
 }
 

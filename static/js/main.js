@@ -59,12 +59,15 @@
             li.remove();
         });
     });
-        // Delete todo list from sidebar
-    $('.old-todo-list').on('click', '.delete-btn', function () {
-        const itemId = $(this).data('item-id');
-        const li = $(this).closest('.todo-item');
+    // Delete todo list from sidebar
+    $('.delete-list-btn-sidebar').on('click', '.delete-list-btn-sidebar', function (event) {
+        event.preventDefault();
+        event.stopPropagation();  // Prevent clicking the link
 
-        $.post(`/delete_item/${itemId}`, function () {
+        const listId = $(this).data('list-id');
+        const li = $(this).closest(li);
+
+        $.post(`/delete_item/${listId}`, function () {
             li.remove();
         });
     });

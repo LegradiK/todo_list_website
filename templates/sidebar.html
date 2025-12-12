@@ -43,7 +43,11 @@
                     </div>
 
                     <!-- Right side: delete bin -->
-                    <button type="button" class="delete-list-btn">
+                    <button
+                        type="button"
+                        class="delete-list-btn-sidebar"
+                        data-list-id="{{ todo.id }}"
+                    >
                         <img src="{{ url_for('static', filename='icons/delete.png') }}"
                             alt="Delete" width="20">
                     </button>

@@ -92,6 +92,8 @@ def profile(user_id):
 
 @app.route('/new_todo', methods=['GET', 'POST'])
 def new_todo():
+    today = date.today()
+
     if 'user_id' not in session:
         flash("Please log in first.", "warning")
         return redirect(url_for('login'))
@@ -125,7 +127,7 @@ def new_todo():
         flash("New to-do list created!", "success")
         return redirect(url_for('new_todo'))
 
-    return render_template('new_todo.html', user_id=session['user_id'])
+    return render_template('new_todo.html', user_id=session['user_id'], today=today)
 
 @app.route('/<int:user_id>/old_todo/<int:todo_id>', methods=['GET', 'POST'])
 def old_todo(user_id, todo_id):
@@ -196,6 +198,20 @@ def delete_item(item_id):
         return "Unauthorized", 401
 
     db.session.delete(item)
+    db.session.commit()
+    return "OK", 200
+
+@app.route('/delete_list/<int:list_id>', methods=['POST'])
+def delete_list(list_id):
+    if 'user_id' not in session:
+        return "Unauthorized", 401
+
+    todo_list = ToDoList.query.get_or_404(list_id)
+
+    if todo_list.user_id != session['user_id']:
+        return "Unauthorized", 401
+
+    db.session.delete(todo_list)
     db.session.commit()
     return "OK", 200
 

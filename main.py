@@ -73,14 +73,17 @@ with app.app_context():
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    today = date.today()
+    return render_template('home.html', today=today)
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    today = date.today()
+    return render_template('about.html', today=today)
 
 @app.route('/member/<int:user_id>', methods=['GET', 'POST'])
 def member(user_id):
+    today = date.today()
     if 'user_id' not in session or session['user_id'] != user_id:
         flash("You do not have access to this page.", "danger")
         return redirect(url_for('home'))
@@ -89,7 +92,7 @@ def member(user_id):
     user_id = session['user_id']
     todo_list = ToDoList.query.filter_by(user_id=user_id)
     items = ToDoItem.query.filter_by(user_id=user_id).all()
-    return render_template('member.html', user=user, user_id=user_id, todo_list=todo_list, items=items)
+    return render_template('member.html', today=today, user=user, user_id=user_id, todo_list=todo_list, items=items)
 
 @app.route('/new_todo', methods=['GET', 'POST'])
 def new_todo():

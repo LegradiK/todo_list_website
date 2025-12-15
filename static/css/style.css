@@ -284,10 +284,24 @@ body, html {
 
 .card .card-title {
     color: #000;
-    margin-bottom: 0.625rem;
-    text-transform: capitalize;
-    font-size: 0.875rem;
+    margin-bottom: 0.2rem;
+    font-size: 1.6rem;
     font-weight: 500;
+}
+
+.btn-and-due-date {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.full-line {
+    display: block;
+    height: 1px;
+    background-color: #000;
+    width: 100%;
+    margin-bottom: 0.8rem;
 }
 
 /* Buttons */
@@ -632,4 +646,17 @@ body, html {
 
 .space-between {
     margin-right: 11rem;
+}
+
+.open-btn {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 2rem;
 }

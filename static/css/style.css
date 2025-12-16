@@ -660,3 +660,10 @@ body, html {
     display: inline-block;
     margin-top: 2rem;
 }
+
+.and_more {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    text-decoration: italic;
+    text-align: right;
+}

@@ -3,7 +3,7 @@
     {% if session.get('user_id') %}
     <div class="user-info mb-4">
         <h5 class="mb-1">
-            <a href="/profile/{{ session.get('user_id') }}" class="text-white text-decoration-none">
+            <a href="{{ url_for('member', user_id=session.get('user_id')) }}" class="text-white text-decoration-none">
             {{ session.get('first_name') }}'s To-Do List
             </a>
         </h5>

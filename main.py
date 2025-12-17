@@ -39,7 +39,7 @@ class ToDoList(db.Model):
     created_date = db.Column(db.Date, nullable=False, default=date.today)
     due_date = db.Column(db.Date, nullable=False)
 
-    items = db.relationship('ToDoItem', back_populates='list', lazy=True, cascade="all, delete")
+    items = db.relationship('ToDoItem', back_populates='list', lazy="select", cascade="all, delete")
 
 
 class ToDoItem(db.Model):

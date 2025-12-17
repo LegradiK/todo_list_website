@@ -13,29 +13,32 @@
                 <div class="col">
                     <div class="small-card shadow-sm">
                         <div class="small-card-body  d-flex flex-column">
-                            <div class="title_and_urgency d-flex justify-content-between">
-                                <h5 class="small-card-title">{{ todo.title }}</h5>
-                                {% if todo.due_date < today %}
-                                    <img src="{{ url_for('static', filename='icons/warning.png') }}"
-                                        alt="" width="28" class="me-2 mb-1">
-                                {% else %}
-                                    {% if todo.task_urgency == 'immediate' %}
-                                        <img src="{{ url_for('static', filename='icons/red_circle.png') }}"
+                            <div class="small-card-content">
+                                <div class="title_and_urgency d-flex justify-content-between">
+                                    <h5 class="small-card-title indent">{{ todo.title }}</h5>
+                                    {% if todo.due_date < today %}
+                                        <img src="{{ url_for('static', filename='icons/warning.png') }}"
                                             alt="" width="28" class="me-2 mb-1">
-                                    {% elif todo.task_urgency == 'timely' %}
-                                        <img src="{{ url_for('static', filename='icons/orange_circle.png') }}"
-                                            alt="" width="28" class="me-2 mb-1">
-                                    {% elif todo.task_urgency == 'flexible' %}
-                                        <img src="{{ url_for('static', filename='icons/green_circle.png') }}"
-                                            alt="" width="28" class="me-2 mb-1">
+                                    {% else %}
+                                        {% if todo.task_urgency == 'immediate' %}
+                                            <img src="{{ url_for('static', filename='icons/red_circle.png') }}"
+                                                alt="" width="28" class="me-2 mb-1">
+                                        {% elif todo.task_urgency == 'timely' %}
+                                            <img src="{{ url_for('static', filename='icons/orange_circle.png') }}"
+                                                alt="" width="28" class="me-2 mb-1">
+                                        {% elif todo.task_urgency == 'flexible' %}
+                                            <img src="{{ url_for('static', filename='icons/green_circle.png') }}"
+                                                alt="" width="28" class="me-2 mb-1">
+                                        {% endif %}
                                     {% endif %}
-                                {% endif %}
+                                </div>
                             </div>
                             <span class="full-line"></span>
                             {% for item in todo.items[:3] %}
-                            <p class="card-text">
+                            <p class="small-card-text indent">
                                 {{ item.text }}
                             </p>
+                            <span class="semi-line"></span>
                             {% endfor %}
 
                             <div class="small-card-bottom justify-content-between mt-auto">

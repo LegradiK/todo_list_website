@@ -315,7 +315,18 @@ body, html {
     font-weight: 500;
 }
 
-.small-card .small-card-bottom{
+.small-card-content {
+    flex-grow: 0;      /* top content doesn’t stretch */
+}
+
+.indent {
+    padding-left: 1rem;
+}
+
+.small-card-bottom {
+    margin-top: auto;  /* push to bottom */
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 0.2rem;
 }
 
@@ -332,6 +343,16 @@ body, html {
     background-color: #000;
     width: 100%;
     margin-bottom: 0.8rem;
+}
+
+.semi-line {
+    display: block;
+    height: 1px;
+    background-color: var(--gray-light);
+    width: 80%;
+    margin-bottom: 0.25rem;
+    margin-top: 0rem;
+    padding: 0rem 0rem;
 }
 
 /* Buttons */

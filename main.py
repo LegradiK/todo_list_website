@@ -92,7 +92,11 @@ def member(user_id):
     user_id = session['user_id']
     todo_list = ToDoList.query.filter_by(user_id=user_id)
     items = ToDoItem.query.filter_by(user_id=user_id).all()
-    return render_template('member.html', today=today, user=user, user_id=user_id, todo_list=todo_list, items=items)
+    empty_items = None
+    if len(items) < 3:
+        empty_items = 3 - len(items)
+
+    return render_template('member.html', today=today, user=user, user_id=user_id, todo_list=todo_list, items=items, empty_items=empty_items)
 
 @app.route('/new_todo', methods=['GET', 'POST'])
 def new_todo():
@@ -192,8 +196,6 @@ def old_todo(user_id, todo_id):
                 if text.strip():
                     db.session.add(ToDoItem(
                         text=text,
-                        task_urgency=todo_list.task_urgency,
-                        due_date=todo_list.due_date,
                         list_id=todo_list.id,
                         user_id=session['user_id']
                     ))

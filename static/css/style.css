@@ -81,7 +81,7 @@ body, html {
 }
 
 .sidebar {
-    width: 250px;
+    width: 260px;
     height: calc(100vh - 55px - 50px); /* navbar height - footer height */
     position: fixed;
     top: 55px;
@@ -288,48 +288,6 @@ body, html {
     font-weight: 500;
 }
 
-.small-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 300px;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #FFF5E6; /* your light color */
-    background-clip: border-box;
-    border: 1px solid #d2d2dc;
-    border-radius: 0;
-    box-shadow: none;
-
-    /* Equal margins on all sides */
-    margin: 1rem 2rem; /* adjust the value as needed */
-
-    padding: 1rem 1.25rem; /* internal spacing */
-
-}
-
-.small-card .small-card-title {
-    color: #000;
-    margin-bottom: 0.2rem;
-    font-size: 1.6rem;
-    font-weight: 500;
-}
-
-.small-card-content {
-    flex-grow: 0;      /* top content doesn’t stretch */
-}
-
-.indent {
-    padding-left: 1rem;
-}
-
-.small-card-bottom {
-    margin-top: auto;  /* push to bottom */
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.2rem;
-}
-
 .btn-and-due-date {
     display: flex;
     justify-content: space-between;
@@ -345,14 +303,80 @@ body, html {
     margin-bottom: 0.8rem;
 }
 
-.semi-line {
-    display: block;
-    height: 1px;
-    background-color: var(--gray-light);
-    width: 80%;
-    margin-bottom: 0.25rem;
-    margin-top: 0rem;
-    padding: 0rem 0rem;
+/* FIXED title area */
+.user-lists-left {
+    width: 830px;            /* adjust to taste */
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+/* Wrapper spacing */
+.user-lists {
+    margin: 0;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+/* Remove border from last item */
+.user-lists:last-child {
+    border-bottom: none;
+}
+
+/* Body layout */
+.user-lists-body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Title row */
+.user-lists-title {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--secondary);
+    margin: 0.15rem;
+    margin-left: 1rem;
+    white-space: wrap;
+    overflow: show;
+    text-overflow: ellipsis;
+}
+
+/* Footer section */
+.user-lists-bottom {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Meta text */
+.total_items,
+.and_more {
+    font-size: 0.85rem;
+    color: var(--gray-dark);
+    margin: 0;
+}
+
+/* Buttons */
+.open-btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+}
+
+/* Due dates */
+.due-date-card {
+    font-size: 0.95rem;
+    color: var(--secondary);
+}
+
+.due-date-card-expired {
+    font-size: 0.95rem;
+    color: var(--danger);
+    font-weight: 600;
+}
+
+/* Title indentation cleanup */
+.indent {
+    padding-left: 0;
 }
 
 /* Buttons */
@@ -456,6 +480,15 @@ body, html {
     text-align: center;
     margin-top: 1rem;
     padding-top: 50px;
+}
+
+.list-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--secondary);
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
 
 .todo-list-title-input {
@@ -562,6 +595,35 @@ body, html {
 }
 
 .delete-list-btn-sidebar:hover {
+    background-color: var(--secondary);
+}
+
+.side-bar-todo-title {
+    display: inline-block;          /* keep it on one line */
+    max-width: 130px;               /* fixed width of sidebar minus icon & padding */
+    white-space: nowrap;             /* prevent wrapping */
+    overflow: hidden;                /* hide overflow text */
+    text-overflow: ellipsis;         /* show ... at end */
+    vertical-align: middle;
+    word-break: normal;              /* avoid breaking mid-word */
+}
+
+.delete-list-btn-member {
+    background-color: var(--transparent);
+    color: var(--white);
+    border: none;
+    padding: 0.2rem 0.2rem;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 1rem;
+    transition: background-color 0.3s ease;
+    margin: 0rem;
+}
+
+.delete-list-btn-member:hover {
     background-color: var(--secondary);
 }
 
@@ -714,6 +776,7 @@ body, html {
     text-decoration: none;
     display: inline-block;
     margin-top: 0rem;
+    margin-right: 0rem;
 }
 
 .and_more {

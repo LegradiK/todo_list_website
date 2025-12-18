@@ -3,64 +3,68 @@
 {% block title %}To Do List{% endblock %}
 
 {% block content %}
-
-<h2>{{ user.first_name }}'s To-Do Lists</h2>
-
+<div class="list-title">
+    <h2>{{ user.first_name }}'s To-Do Lists</h2>
+</div>
 {% if user_id %}
-    <div class="container mt-1">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5 mt-0">
+    <div class="container mt-3">
+        <div class="card shadow-sm">
             {% for todo in old_todos %}
                 <div class="col">
-                    <div class="small-card shadow-sm">
-                        <div class="small-card-body  d-flex flex-column">
-                            <div class="small-card-content">
-                                <div class="title_and_urgency d-flex justify-content-between">
-                                    <h5 class="small-card-title indent">{{ todo.title }}</h5>
+                    <div class="user-lists shadow-sm">
+                        <div class="user-lists-body  d-flex flex-column">
+                            <div class="user-lists-row d-flex align-items-center justify-content-between">
+                                <!-- LEFT SIDE: urgency + title + total items -->
+                                <div class="user-lists-left d-flex align-items-center gap-3">
                                     {% if todo.due_date < today %}
                                         <img src="{{ url_for('static', filename='icons/warning.png') }}"
-                                            alt="" width="28" class="me-2 mb-1">
+                                            alt="" height="25" width="25" class="me-2 mb-1 mt-1">
                                     {% else %}
                                         {% if todo.task_urgency == 'immediate' %}
                                             <img src="{{ url_for('static', filename='icons/red_circle.png') }}"
-                                                alt="" width="28" class="me-2 mb-1">
+                                                alt="" height="25" width="25" class="me-2 mb-1 mt-1">
                                         {% elif todo.task_urgency == 'timely' %}
                                             <img src="{{ url_for('static', filename='icons/orange_circle.png') }}"
-                                                alt="" width="28" class="me-2 mb-1">
+                                                alt="" height="25" width="25" class="me-2 mb-1 mt-1">
                                         {% elif todo.task_urgency == 'flexible' %}
                                             <img src="{{ url_for('static', filename='icons/green_circle.png') }}"
-                                                alt="" width="28" class="me-2 mb-1">
+                                                alt="" height="25" width="25" class="me-2 mb-1 mt-1">
                                         {% endif %}
                                     {% endif %}
+                                    <h5 class="user-lists-title indent">{{ todo.title }}</h5>
                                 </div>
-                            </div>
-                            <span class="full-line"></span>
-                            {% for item in todo.items[:3] %}
-                            <p class="small-card-text indent">
-                                {{ item.text }}
-                            </p>
-                            <span class="semi-line"></span>
-                            {% endfor %}
+                                <!-- RIGHT SIDE: due date + button -->
+                                <div class="user-lists-right d-flex align-items-center gap-3">
+                                    <p class="total_items mb-0">
+                                        Total items: {{ todo.items|length }}
+                                    </p>
 
-                            <div class="small-card-bottom justify-content-between mt-auto">
-                                {% if todo.items|length > 3 %}
-                                    <p class="and_more mb-0">and more</p>
-                                {% endif %}
-                                <p class="total_items mb-0">Total items: {{ todo.items|length }}</p>
-                                <div class="btn-and-expiry-date d-flex justify-content-between align-items-end mt-auto">
-                                    <a href="{{ url_for('old_todo', todo_id=todo.id, user_id=user_id) }}"
-                                    class="btn open-btn btn-sm">
-                                        Open
-                                    </a>
-                                    {% if todo.due_date < today %}
-                                        <span class="due-date-card-expired">
-                                            Due date: {{ todo.due_date }}
-                                        </span>
-                                    {% else %}
-                                        <span class="due-date-card">
-                                            Due date: {{ todo.due_date }}
-                                        </span>
-                                    {% endif %}
+                                    <div class="user-lists-actions d-flex align-items-center gap-3">
+                                        {% if todo.due_date < today %}
+                                            <span class="due-date-card-expired">
+                                                Due date: {{ todo.due_date }}
+                                            </span>
+                                        {% else %}
+                                            <span class="due-date-card">
+                                                Due date: {{ todo.due_date }}
+                                            </span>
+                                        {% endif %}
+
+                                        <a href="{{ url_for('old_todo', todo_id=todo.id, user_id=user_id) }}"
+                                        class="btn open-btn btn-sm">
+                                            Open
+                                        </a>
+                                        <button
+                                            type="button"
+                                            class="delete-list-btn-member"
+                                            data-list-id="{{ todo.id }}"
+                                        >
+                                            <img src="{{ url_for('static', filename='icons/delete.png') }}"
+                                                alt="Delete" width="20">
+                                        </button>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>

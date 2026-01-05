@@ -2,7 +2,6 @@
 
 A full‑stack Flask web application that allows users to create, manage, and prioritise to‑do lists with authentication, due dates, urgency levels, and task completion tracking.
 
----
 
 ## Features
 

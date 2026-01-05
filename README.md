@@ -75,8 +75,8 @@ project/
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd project
+git clone https://github.com/LegradiK/todo_list_website.git
+cd todo_list_website
 ```
 
 ### 2. Create a Virtual Environment
@@ -102,7 +102,7 @@ export FLASK_SECRET_KEY="your-secret-key"
 ### 5. Run the Application
 
 ```bash
-python app.py
+python main.py
 ```
 
 The app will be available at:
